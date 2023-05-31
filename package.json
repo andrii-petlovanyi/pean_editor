@@ -1,7 +1,20 @@
 {
   "name": "Pean.ed",
   "private": true,
+  "description": "Desktop app on Electron for managing my homepage. Main features - markdown/html editor with code highlighter, AI (ChatGPT) for automation some functions, convenient content management e.t.c",
+  "author": {
+    "name": "Andrii Petlovanyi",
+    "email": "andrey.petlovany@gmail.com",
+    "url": "https://pean.dev"
+  },
   "version": "0.0.1",
+  "keywords": [
+    "Electron",
+    "React",
+    "Node.js",
+    "Typescript",
+    "ChakraUI"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
