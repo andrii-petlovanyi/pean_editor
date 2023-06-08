@@ -1,7 +1,7 @@
-import { Flex, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
-import { INavItemLink } from "../../types/layout";
 import { NavLink, matchPath, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Flex, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import { INavItemLink } from "../../types";
 
 interface Props {
   isClosed: boolean;
@@ -12,11 +12,12 @@ const AnimateFlex = motion(Flex);
 const AnimateText = motion(Text);
 
 export const NavItemLink = (props: Props): JSX.Element => {
-  const location = useLocation().pathname;
   const { link, isClosed } = props;
+  const location = useLocation().pathname;
+  const nestedLocation = "/" + location.split("/")[1];
   const { to, icon, name } = link;
 
-  const isActive = !!matchPath(location, to);
+  const isActive = !!matchPath(location, to) || !!matchPath(nestedLocation, to);
   const activeBG = useColorModeValue("accentWhite.400", "accentDark.400");
   return (
     <>

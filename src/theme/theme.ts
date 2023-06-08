@@ -1,6 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { GlobalStylesProps } from "../types/chakra";
+import { GlobalStylesProps } from "../types/chakra.interface";
+import { buttonTheme } from "./extendeds/buttons.extend";
+import { inputTheme } from "./extendeds/inputs.extend";
 
 import "@fontsource/noto-sans-tc/300.css";
 import "@fontsource/noto-sans-tc/400.css";
@@ -17,6 +19,7 @@ const colors = {
   primaryDark: {
     300: "#323232",
     200: "#4b4b4b",
+    300.5: "#32323288",
   },
   accentDark: {
     400: "#1a8784",
@@ -55,7 +58,28 @@ const fonts = {
   body: `'Noto Sans TC', sans-serif`,
 };
 
-const components = {};
+const components = {
+  Link: {
+    baseStyle: {
+      _hover: {
+        textDecoration: "none",
+      },
+    },
+  },
+  Alert: {
+    variants: {
+      custom: (props: GlobalStylesProps) => ({
+        container: {
+          color: "white",
+          bg: mode("purple.500", "teal.500")(props),
+        },
+      }),
+    },
+  },
+  Button: buttonTheme,
+  IconButton: buttonTheme,
+  Input: inputTheme,
+};
 
 const theme = extendTheme({
   colors,

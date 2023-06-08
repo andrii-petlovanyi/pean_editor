@@ -8,11 +8,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { CiSquareChevLeft, CiSquareChevRight } from "react-icons/ci";
-import { links } from "../components/layout/links";
-import { INavItemLink } from "../types/layout";
-import { NavItemLink } from "../components/layout/NavItemLink";
-import { sidebarAnim } from "../components/animations/variants/sidebar";
-import { SidebarOptions } from "../components/layout/SidebarOptions";
+import { NavItemLink, SidebarOptions, links, sidebarAnim } from "../components";
+import { INavItemLink } from "../types";
 
 const MotionGrid = motion(Grid);
 

@@ -8,7 +8,7 @@ export const sidebarAnim = {
     },
   },
   expand: {
-    gridTemplateColumns: "230px 1fr",
+    gridTemplateColumns: "200px 1fr",
     transition: {
       type: "spring",
       stiffness: 900,

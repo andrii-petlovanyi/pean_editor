@@ -1,0 +1,19 @@
+import { SimpleGrid } from "@chakra-ui/react";
+import { ReactNode } from "react";
+
+interface Props {
+  children: ReactNode;
+}
+
+export const ListWrapper = (props: Props): JSX.Element => {
+  const { children } = props;
+  return (
+    <SimpleGrid
+      spacing={4}
+      templateColumns={"repeat(auto-fill, 260px)"}
+      gap={"20px"}
+    >
+      {children}
+    </SimpleGrid>
+  );
+};
