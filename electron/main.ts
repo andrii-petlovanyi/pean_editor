@@ -18,6 +18,9 @@ function createWindow() {
 
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+
+      //TODO: for feature connect gAuth
+      // webSecurity: false,
     },
   });
 
@@ -34,8 +37,11 @@ function createWindow() {
   }
 }
 
+app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors");
+
 app.on("window-all-closed", () => {
   win = null;
 });
 
 app.whenReady().then(createWindow);
+

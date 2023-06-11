@@ -33,6 +33,7 @@ export const FolderCard = ({ folder }: Props): JSX.Element => {
       display={"flex"}
       flexDirection={"column"}
       borderRadius={"md"}
+      gap={"5px"}
       width={"100%"}
       position={"relative"}
       overflow={"hidden"}

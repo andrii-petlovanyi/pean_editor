@@ -1,37 +1,42 @@
-import { ReactElement, useState } from "react";
-import { Button, Flex, Text } from "@chakra-ui/react";
-import { useGetAllGalleryFoldersQuery } from "../redux";
-import { IGalleryFolder } from "../types";
+import { useMemo, useState } from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import { FolderActionType, IGalleryFolder } from "../types";
 import { FolderCard, ListWrapper, Search, Toolbar } from "../components";
+import { FolderFormPopover } from "../components/Gallery/Folder/FolderFormPopover";
+import { useGetAllGalleryFoldersQuery } from "../redux/api/gallery.api";
+import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 
 export const Gallery = (): JSX.Element => {
   const [search, setSearch] = useState<string>();
-  const { data, currentData, isFetching } = useGetAllGalleryFoldersQuery(null);
+  const { data, isFetching } = useGetAllGalleryFoldersQuery(null);
 
   console.log(search);
 
-  const content = (): ReactElement | ReactElement[] => {
-    if (isFetching) {
-      return <Text>...loading</Text>;
-    } else if (data?.length && currentData) {
-      return currentData.map((folder: Omit<IGalleryFolder, "albums">) => (
-        <FolderCard key={folder.id} folder={folder} />
-      ));
-    } else {
-      return <Text>...no folders</Text>;
+  const content = useMemo(() => {
+    switch (true) {
+      case isFetching:
+        return listOfFolderSkeletons;
+      case data && data.length > 0:
+        return data?.map((folder: Omit<IGalleryFolder, "albums">) => (
+          <FolderCard key={folder.id} folder={folder} />
+        ));
+      default:
+        return <Text>...no folders</Text>;
     }
-  };
-
-  const renderedContent = content();
+  }, [isFetching, data]);
 
   return (
     <Flex direction={"column"} gap={"15px"}>
       <Toolbar isDisabled={true}>
-        <Button size={"sm"}>+</Button>
+        <FolderFormPopover
+          folder={undefined}
+          title={"Create folder"}
+          actionType={FolderActionType.CREATE}
+        />
         <Search setSearch={setSearch} />
       </Toolbar>
 
-      <ListWrapper>{renderedContent}</ListWrapper>
+      <ListWrapper>{content}</ListWrapper>
     </Flex>
   );
 };

@@ -1,9 +1,10 @@
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton, useToast } from "@chakra-ui/react";
 import { FiSettings } from "react-icons/fi";
 import { ToggleColorMode } from "../../theme/toggleColorMode";
-import { useLogOutUserMutation } from "../../redux";
 import { constants } from "../../config/constant";
 import { useLocalStorage } from "../../hooks";
+import { useLogOutUserMutation } from "../../redux/api/user.api";
+import { messages } from "../../config/messages";
 
 interface Props {
   isClosed: boolean;
@@ -13,15 +14,17 @@ export const SidebarOptions = (props: Props): JSX.Element => {
   const { isClosed } = props;
   const [logOutUser, { isLoading }] = useLogOutUserMutation();
   const { setIsExpired } = useLocalStorage(constants.ACCESS_TOKEN);
+  const toast = useToast({ variant: "custom" });
 
   const logoutHandler = async () => {
     try {
       const res = await logOutUser();
       if ("data" in res) {
         setIsExpired(true);
+        toast({ description: "You are log out successfully!" });
       }
     } catch (error) {
-      console.log(error);
+      toast({ description: messages.errors.defaultError });
     }
   };
 

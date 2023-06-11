@@ -1,2 +1,2 @@
-export * from "./useImgPreview";
+export * from "./useOneImgPreview";
 export * from "./useLocalStorage";

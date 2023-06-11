@@ -19,6 +19,7 @@ export const NavItemLink = (props: Props): JSX.Element => {
 
   const isActive = !!matchPath(location, to) || !!matchPath(nestedLocation, to);
   const activeBG = useColorModeValue("accentWhite.400", "accentDark.400");
+
   return (
     <>
       <Link

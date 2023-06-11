@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../../config/config";
 import { RootState } from "../store";
 
-export const postsApi = createApi({
+const postsApi = createApi({
   reducerPath: "postsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: config.BASE_API_URL + "/posts",
@@ -14,10 +14,12 @@ export const postsApi = createApi({
       return headers;
     },
   }),
+
   keepUnusedDataFor: 30,
   tagTypes: ["posts"],
+
   endpoints: (builder) => ({
-    allPosts: builder.query<any, string>({
+    allPosts: builder.query<any, null>({
       query: () => `/`,
       keepUnusedDataFor: 30,
       providesTags: ["posts"],
@@ -31,7 +33,10 @@ export const postsApi = createApi({
       invalidatesTags: ["posts"],
     }),
   }),
+  
   refetchOnReconnect: true,
 });
 
 export const { useAllPostsQuery, useDeleteOnePostMutation } = postsApi;
+
+export default postsApi;

@@ -1,3 +1,3 @@
 export const Blog = (): JSX.Element => {
-  return <div>Blog</div>;
+  return <div>Blog screen</div>;
 };

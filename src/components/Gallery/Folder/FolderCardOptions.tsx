@@ -1,9 +1,15 @@
-import { Flex, IconButton, useColorModeValue } from "@chakra-ui/react";
+import {
+  Flex,
+  IconButton,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { AiOutlineDelete } from "react-icons/ai";
-import { IGalleryFolder } from "../../../types";
-import { useDeleteOneGalleryFolderMutation } from "../../../redux";
-import { UpdateFolderPopover } from "./UpdateFolderPopover";
+import { FolderActionType, IGalleryFolder } from "../../../types";
+import { FolderFormPopover } from "./FolderFormPopover";
+import { useDeleteOneGalleryFolderMutation } from "../../../redux/api/gallery.api";
+import { messages } from "../../../config/messages";
 
 interface Props {
   folder: Omit<IGalleryFolder, "albums">;
@@ -15,17 +21,24 @@ const MotionFlex = motion(Flex);
 export const FolderCardOptions = (props: Props) => {
   const { folder, isHovered } = props;
   const { id } = folder;
+  const toast = useToast({ variant: "custom" });
 
   const [deleteOneGalleryFolder, { isLoading: isDeleting }] =
     useDeleteOneGalleryFolderMutation();
 
   const handleDeletingFolder = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.preventDefault();
 
     try {
-      const res = await deleteOneGalleryFolder(id);
-      console.log(res);
-    } catch (error) {}
+      await deleteOneGalleryFolder(id);
+      toast({
+        description: "Folder deleted successfully!",
+      });
+    } catch (error) {
+      toast({
+        description: messages.errors.defaultError,
+      });
+    }
   };
 
   const handleOptionsClick = (e: React.MouseEvent) => {
@@ -44,6 +57,7 @@ export const FolderCardOptions = (props: Props) => {
       backgroundColor={useColorModeValue("", "primaryDark.300.5")}
       backdropFilter={"blur(5px)"}
       borderRadius={"md"}
+      borderTopLeftRadius={"0"}
       onClick={handleOptionsClick}
     >
       <IconButton
@@ -55,7 +69,11 @@ export const FolderCardOptions = (props: Props) => {
         fontSize={"16px"}
         onClick={handleDeletingFolder}
       />
-      <UpdateFolderPopover folder={folder} />
+      <FolderFormPopover
+        folder={folder}
+        actionType={FolderActionType.UPDATE}
+        title={"Edit folder"}
+      />
     </MotionFlex>
   );
 };

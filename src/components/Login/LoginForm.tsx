@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
   Button,
-  Center,
   Checkbox,
   FormControl,
   FormErrorMessage,
@@ -15,16 +14,15 @@ import {
   InputRightElement,
   Link,
   Stack,
-  Text,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
-import { FcGoogle } from "react-icons/fc";
 import { useLogInUserMutation } from "../../redux/api/user.api";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { constants } from "../../config/constant";
 import { User } from "../../types";
+import { messages } from "../../config/messages";
 
 const loginSchema = yup.object().shape({
   nickname: yup
@@ -65,8 +63,7 @@ export const LoginForm = (): JSX.Element => {
         reset();
       } else if ("error" in res) {
         const errorMessage =
-          (res.error as any).data.message ||
-          "Something went wrong... Unknown error occurred";
+          (res.error as any).data.message || messages.errors.defaultError;
 
         toast({
           description: errorMessage,
@@ -76,7 +73,7 @@ export const LoginForm = (): JSX.Element => {
       }
     } catch (error) {
       toast({
-        description: "Something went wrong",
+        description: messages.errors.defaultError,
       });
     }
   }
@@ -148,12 +145,6 @@ export const LoginForm = (): JSX.Element => {
             }}
           >
             Sign in
-          </Button>
-          <Text textAlign={"center"}>or</Text>
-          <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
-            <Center>
-              <Text>Sign in with Google</Text>
-            </Center>
           </Button>
         </Stack>
       </Stack>

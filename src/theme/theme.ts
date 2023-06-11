@@ -17,8 +17,8 @@ const config = {
 const colors = {
   mainBGDark: "#23232322",
   primaryDark: {
-    300: "#323232",
     200: "#4b4b4b",
+    300: "#323232",
     300.5: "#32323288",
   },
   accentDark: {
@@ -29,6 +29,8 @@ const colors = {
   textColorDark: {
     200: "#ffffff",
     300: "#e0e0e0",
+    400: "#a2a2a2",
+    400.5: "#a2a2a288",
   },
 
   mainBGWhite: "#F5F3F766",

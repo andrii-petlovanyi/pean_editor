@@ -4,16 +4,16 @@ import { Provider } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import App from "./App.tsx";
 import theme from "./theme/theme.ts";
-import { store } from "./redux";
+import { store } from "./redux/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <Provider store={store}>
-    <HashRouter>
-      <ChakraProvider theme={theme}>
+  <HashRouter>
+    <ChakraProvider theme={theme}>
+      <Provider store={store}>
         <App />
-      </ChakraProvider>
-    </HashRouter>
-  </Provider>
+      </Provider>
+    </ChakraProvider>
+  </HashRouter>
 );
 
 postMessage({ payload: "removeLoading" }, "*");

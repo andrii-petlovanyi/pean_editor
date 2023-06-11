@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../../config/config";
 import { RootState } from "../store";
 
-export const projectsApi = createApi({
-  reducerPath: "postsApi",
+const projectsApi = createApi({
+  reducerPath: "projectsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: config.BASE_API_URL + "projects",
+    baseUrl: config.BASE_API_URL + "/projects",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.accessToken;
       if (token) {
@@ -14,10 +14,12 @@ export const projectsApi = createApi({
       return headers;
     },
   }),
+
   keepUnusedDataFor: 30,
   tagTypes: ["projects"],
+
   endpoints: (builder) => ({
-    allProjectsList: builder.query<any, string>({
+    allProjectsList: builder.query<any, null>({
       query: () => `/`,
       keepUnusedDataFor: 30,
       providesTags: ["projects"],
@@ -36,3 +38,5 @@ export const projectsApi = createApi({
 
 export const { useAllProjectsListQuery, useDeleteOneProjectMutation } =
   projectsApi;
+
+export default projectsApi;

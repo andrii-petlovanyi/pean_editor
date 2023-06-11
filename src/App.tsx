@@ -19,7 +19,8 @@ import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { constants } from "./config/constant";
-import { RootState, useGetUserQuery } from "./redux";
+import { RootState } from "./redux/store";
+import { useGetUserQuery } from "./redux/api/user.api";
 
 function App() {
   const accessToken = useSelector((state: RootState) => state.auth.accessToken);

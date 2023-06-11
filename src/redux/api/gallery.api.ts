@@ -3,6 +3,7 @@ import { config } from "../../config/config";
 import {
   IAlbum,
   ICreateAlbum,
+  ICreateGalleryFolder,
   ICreateResponse,
   IDeleteResponse,
   IGalleryFolder,
@@ -12,7 +13,7 @@ import {
 } from "../../types";
 import { RootState } from "../store";
 
-export const galleryApi = createApi({
+const galleryApi = createApi({
   reducerPath: "galleryApi",
   baseQuery: fetchBaseQuery({
     baseUrl: config.BASE_API_URL + "/gallery",
@@ -24,8 +25,10 @@ export const galleryApi = createApi({
       return headers;
     },
   }),
+
   keepUnusedDataFor: 30,
   tagTypes: ["gallery", "albums"],
+
   endpoints: (builder) => ({
     getAllGalleryFolders: builder.query<Omit<IGalleryFolder, "albums">[], null>(
       {
@@ -43,12 +46,12 @@ export const galleryApi = createApi({
 
     createOneGalleryFolder: builder.mutation<
       Pick<IGalleryFolder, "folderName">,
-      string
+      ICreateGalleryFolder
     >({
-      query: (folderData) => ({
+      query: (data) => ({
         url: `/`,
         method: "POST",
-        body: folderData,
+        body: data.formData,
       }),
       invalidatesTags: ["gallery"],
     }),
@@ -69,9 +72,6 @@ export const galleryApi = createApi({
         url: `/${folderData.folderId}`,
         method: "PATCH",
         body: folderData.formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       }),
       invalidatesTags: ["gallery"],
     }),
@@ -86,7 +86,7 @@ export const galleryApi = createApi({
       query: (albumData) => ({
         url: `/${albumData.folderId}/album`,
         method: "POST",
-        body: albumData.album,
+        body: albumData.formData,
       }),
       invalidatesTags: ["albums", "gallery"],
     }),
@@ -95,7 +95,7 @@ export const galleryApi = createApi({
       query: (albumData) => ({
         url: `/album/${albumData.albumId}`,
         method: "PATCH",
-        body: albumData.album,
+        body: albumData.formData,
       }),
       invalidatesTags: ["albums", "gallery"],
     }),
@@ -114,6 +114,7 @@ export const galleryApi = createApi({
 
 export const {
   useGetAllGalleryFoldersQuery,
+  usePrefetch,
   useGetOneAlbumQuery,
   useGetOneGalleryFolderQuery,
   useCreateOneAlbumMutation,
@@ -123,3 +124,5 @@ export const {
   useDeleteOneAlbumMutation,
   useDeleteOneGalleryFolderMutation,
 } = galleryApi;
+
+export default galleryApi;

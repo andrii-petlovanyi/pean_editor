@@ -32,7 +32,6 @@ export const Search = (props: Props): JSX.Element => {
       event.preventDefault();
       searchInputRef.current?.blur();
     } else if (event.metaKey && event.key === "Backspace") {
-      console.log("hello");
       event.preventDefault();
       searchInputRef.current!.value = "";
     }

@@ -5,9 +5,12 @@ export interface IGalleryFolder {
   albums: IAlbum[];
 }
 
-export interface IUpdateGalleryFolder {
-  folderId: string;
+export interface ICreateGalleryFolder {
   formData: FormData;
+}
+
+export interface IUpdateGalleryFolder extends ICreateGalleryFolder {
+  folderId: string;
 }
 
 export interface IAlbum {
@@ -18,15 +21,13 @@ export interface IAlbum {
 
 export interface ICreateAlbum {
   folderId: string;
-  album: IAlbum;
+  formData: FormData;
 }
 
 export interface IUpdateAlbum {
   albumId: string;
-  album: {
-    albumName?: string;
-    images?: IImage[];
-  };
+  images?: string[];
+  formData: FormData;
 }
 
 export interface IImage {
@@ -34,7 +35,12 @@ export interface IImage {
   url: string;
 }
 
-export interface UpdateFolderFormValues {
+export interface FolderFormValues {
   folderName: string;
   placeholder: FileList | null;
+}
+
+export enum FolderActionType {
+  CREATE = "CREATE",
+  UPDATE = "UPDATE",
 }

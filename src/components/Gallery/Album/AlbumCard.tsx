@@ -1,18 +1,30 @@
 import { Flex, Image, Stack, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { AlbumCardOptions } from "./AlbumCardOptions";
+import { IAlbum } from "../../../types";
+import { useState } from "react";
 
 interface Props {
-  id: string;
-  imgPlaceholder: string;
-  title: string;
+  album: IAlbum;
+  folderId: string;
 }
 
 export const AlbumCard = (props: Props): JSX.Element => {
-  const { id, imgPlaceholder, title } = props;
+  const { album, folderId } = props;
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <Stack
       as={Link}
-      to={id}
+      to={album.id}
       boxShadow={"md"}
       display={"flex"}
       flexDirection={"column"}
@@ -21,8 +33,16 @@ export const AlbumCard = (props: Props): JSX.Element => {
       gap={"5px"}
       width={"100%"}
       position={"relative"}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <Image width={"100%"} src={imgPlaceholder} />
+      <AlbumCardOptions
+        album={album}
+        folderId={folderId}
+        isHovered={isHovered}
+      />
+      <Image width={"100%"} m={"0 !important"} src={album?.images[0]?.url} />
+
       <Flex
         color={"white"}
         position={"absolute"}
@@ -30,12 +50,12 @@ export const AlbumCard = (props: Props): JSX.Element => {
         left={"0"}
         right={"0"}
         p={"5px 10px"}
-        fontSize={"18px"}
+        fontSize={"16px"}
         fontWeight={"700"}
         backgroundColor={useColorModeValue("", "primaryDark.300.5")}
         backdropFilter={"blur(5px)"}
       >
-        {title}
+        {album.albumName}
       </Flex>
     </Stack>
   );

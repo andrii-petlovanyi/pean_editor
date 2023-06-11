@@ -1,26 +1,34 @@
-import { Middleware, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { galleryApi, postsApi, projectsApi } from "./api";
 import authReducer from "./slice/user.slice";
 import userApi from "./api/user.api";
+import galleryApi from "./api/gallery.api";
+import postsApi from "./api/posts.api";
+import projectsApi from "./api/projects.api";
 
-const middlewares = [
-  galleryApi.middleware,
+const middleware = [
+  ...getDefaultMiddleware({}),
   postsApi.middleware,
   projectsApi.middleware,
   userApi.middleware,
-] as Middleware[];
+  galleryApi.middleware,
+];
+
+const reducers = combineReducers({
+  auth: authReducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [postsApi.reducerPath]: postsApi.reducer,
+  [projectsApi.reducerPath]: projectsApi.reducer,
+  [galleryApi.reducerPath]: galleryApi.reducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    [userApi.reducerPath]: userApi.reducer,
-    [galleryApi.reducerPath]: galleryApi.reducer,
-    [postsApi.reducerPath]: postsApi.reducer,
-    [projectsApi.reducerPath]: projectsApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middlewares),
+  reducer: reducers,
+  middleware,
 });
 
 setupListeners(store.dispatch);
