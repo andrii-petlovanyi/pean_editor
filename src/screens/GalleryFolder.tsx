@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 import { IAlbum } from "../types";
@@ -14,26 +14,25 @@ export const GalleryFolder = (): JSX.Element => {
 
   console.log(search);
 
-  const { data, currentData, isFetching } = useGetOneGalleryFolderQuery(
+  const { currentData, isFetching } = useGetOneGalleryFolderQuery(
     folderId || "",
     {
       skip: folderId == undefined,
     }
   );
 
-  const content = (): ReactNode => {
-    if (isFetching) {
-      return listOfFolderSkeletons;
-    } else if (data?.albums?.length && currentData) {
-      return currentData?.albums?.map((album: IAlbum) => (
-        <AlbumCard key={album.id} album={album} folderId={folderId!} />
-      ));
-    } else {
-      return <Text>...no albums</Text>;
+  const rendererContent = useMemo(() => {
+    switch (true) {
+      case isFetching:
+        return listOfFolderSkeletons;
+      case !!currentData?.albums?.length:
+        return currentData?.albums?.map((album: IAlbum) => (
+          <AlbumCard key={album.id} album={album} folderId={folderId!} />
+        ));
+      default:
+        return <Text>...no albums</Text>;
     }
-  };
-
-  const renderedContent = content();
+  }, []);
 
   return (
     <Flex direction={"column"} gap={"15px"}>
@@ -46,7 +45,7 @@ export const GalleryFolder = (): JSX.Element => {
         <Search setSearch={setSearch} />
       </Toolbar>
 
-      <ListWrapper>{renderedContent}</ListWrapper>
+      <ListWrapper>{rendererContent}</ListWrapper>
     </Flex>
   );
 };
