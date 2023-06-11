@@ -32,7 +32,7 @@ export const GalleryFolder = (): JSX.Element => {
       default:
         return <Text>...no albums</Text>;
     }
-  }, []);
+  }, [currentData]);
 
   return (
     <Flex direction={"column"} gap={"15px"}>
