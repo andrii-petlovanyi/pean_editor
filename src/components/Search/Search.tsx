@@ -16,7 +16,7 @@ interface Props {
   setSearch: (search: string) => void;
 }
 
-const AnimInput = motion(Input);
+const MotionInput = motion(Input);
 
 export const Search = (props: Props): JSX.Element => {
   const { isLoading, setSearch } = props;
@@ -73,7 +73,7 @@ export const Search = (props: Props): JSX.Element => {
 
   return (
     <InputGroup size={"sm"}>
-      <AnimInput
+      <MotionInput
         ref={searchInputRef}
         layoutId={"input"}
         placeholder={"Search"}

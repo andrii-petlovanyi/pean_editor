@@ -46,6 +46,7 @@ export const FolderCard = ({ folder }: Props): JSX.Element => {
         m={"0 !important"}
         width={"100%"}
         src={imgPlaceholder}
+        loading={"lazy"}
       />
       <MotionFlex
         color={"white"}

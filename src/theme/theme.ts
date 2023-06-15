@@ -68,6 +68,13 @@ const components = {
       },
     },
   },
+  Tooltip: {
+    baseStyle: (props: GlobalStylesProps) => ({
+      color: mode("", "textColorDark.300")(props),
+      bg: mode("", "primaryDark.200")(props),
+      borderRadius: "2px",
+    }),
+  },
   Alert: {
     variants: {
       custom: (props: GlobalStylesProps) => ({

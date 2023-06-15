@@ -9,9 +9,11 @@ interface Props {
 export const UploadWrapper = (props: Props): JSX.Element => {
   return (
     <Flex
-      bg={useColorModeValue("", "primaryDark.200")}
+      border={"1px solid"}
+      borderColor={useColorModeValue("", "textColorDark.400.5")}
       borderRadius={"md"}
       position={"relative"}
+      cursor={"pointer"}
     >
       <Flex
         position={"absolute"}
@@ -24,6 +26,7 @@ export const UploadWrapper = (props: Props): JSX.Element => {
         gap={"5px"}
         fontWeight={"300"}
         fontSize={"16px"}
+        color={useColorModeValue("", "textColorDark.400")}
       >
         <Icon as={AiOutlineCloudUpload} fontSize={"24px"} />
         Select or drag image

@@ -1,3 +1,4 @@
+import { AiOutlineDelete } from "react-icons/ai";
 import {
   Flex,
   IconButton,
@@ -7,7 +8,6 @@ import {
 import { motion } from "framer-motion";
 import { useUpdateOneAlbumMutation } from "../../../../redux/api/gallery.api";
 import { messages } from "../../../../config/messages";
-import { AiOutlineDelete } from "react-icons/ai";
 
 interface Props {
   albumId: string;

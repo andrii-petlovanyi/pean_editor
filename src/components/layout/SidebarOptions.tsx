@@ -1,7 +1,7 @@
 import { Flex, IconButton, useToast } from "@chakra-ui/react";
 import { FiSettings } from "react-icons/fi";
 import { ToggleColorMode } from "../../theme/toggleColorMode";
-import { constants } from "../../config/constant";
+import { constants } from "../../constants/constants";
 import { useLocalStorage } from "../../hooks";
 import { useLogOutUserMutation } from "../../redux/api/user.api";
 import { messages } from "../../config/messages";

@@ -63,7 +63,7 @@ export const Layout = () => {
             <HStack height="full"></HStack>
           </GridItem> */
           }
-          <GridItem p="4">
+          <GridItem p={"4"} height={"calc(100svh)"}>
             <Outlet />
           </GridItem>
         </MotionGrid>

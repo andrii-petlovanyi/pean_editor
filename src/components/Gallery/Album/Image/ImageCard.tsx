@@ -34,7 +34,12 @@ export const ImageCard = (props: Props): JSX.Element => {
         imgId={image.id}
         isHovered={isHovered}
       />
-      <Image src={image.url} alt={albumName} m={"0 !important"} />
+      <Image
+        src={image.url}
+        alt={albumName}
+        m={"0 !important"}
+        loading={"lazy"}
+      />
     </Stack>
   );
 };

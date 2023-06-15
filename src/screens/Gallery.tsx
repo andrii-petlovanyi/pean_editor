@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { FolderActionType, IGalleryFolder } from "../types";
-import { FolderCard, ListWrapper, Search, Toolbar } from "../components";
+import { FolderCard, ListWrapper, Search, PageToolbar } from "../components";
 import { FolderFormPopover } from "../components/Gallery/Folder/FolderFormPopover";
 import { useGetAllGalleryFoldersQuery } from "../redux/api/gallery.api";
 import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
@@ -27,14 +27,14 @@ export const Gallery = (): JSX.Element => {
 
   return (
     <Flex direction={"column"} gap={"15px"}>
-      <Toolbar isDisabled={true}>
+      <PageToolbar isDisabled={true}>
         <FolderFormPopover
           folder={undefined}
           title={"Create folder"}
           actionType={FolderActionType.CREATE}
         />
         <Search setSearch={setSearch} />
-      </Toolbar>
+      </PageToolbar>
 
       <ListWrapper>{content}</ListWrapper>
     </Flex>

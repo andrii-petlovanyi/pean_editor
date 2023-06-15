@@ -12,6 +12,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Tooltip,
   useColorModeValue,
   useDisclosure,
   useToast,
@@ -126,20 +127,21 @@ export const AlbumFormPopover = (props: Props): JSX.Element => {
 
   return (
     <>
-      <IconButton
-        variant={"shadow"}
-        aria-label={
-          action ? "Button for editing album" : "Button for creating album"
-        }
-        icon={action ? <MdEdit /> : <MdAddPhotoAlternate />}
-        isLoading={action ? isUpdating : isCreating}
-        size={"sm"}
-        fontSize={"16px"}
-        onClick={onOpen}
-      />
-
+      <Tooltip label={action ? "Edit album" : "Create new album"}>
+        <IconButton
+          variant={"shadow"}
+          aria-label={
+            action ? "Button for editing album" : "Button for creating album"
+          }
+          icon={action ? <MdEdit /> : <MdAddPhotoAlternate />}
+          isLoading={action ? isUpdating : isCreating}
+          size={"sm"}
+          fontSize={"16px"}
+          onClick={onOpen}
+        />
+      </Tooltip>
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
-        <ModalOverlay />
+        <ModalOverlay bg={"blackAlpha.500"} backdropFilter={"blur(3px)"} />
         <ModalContent bg={useColorModeValue("", "primaryDark.300")}>
           <ModalHeader fontSize={"18px"}>{title}</ModalHeader>
           <ModalCloseButton size={"sm"} />
@@ -157,6 +159,7 @@ export const AlbumFormPopover = (props: Props): JSX.Element => {
                     accept={"image/*"}
                     multiple
                     {...register("images")}
+                    cursor={"pointer"}
                     opacity={"0"}
                     height={"70px"}
                   />

@@ -41,7 +41,12 @@ export const AlbumCard = (props: Props): JSX.Element => {
         folderId={folderId}
         isHovered={isHovered}
       />
-      <Image width={"100%"} m={"0 !important"} src={album?.images[0]?.url} />
+      <Image
+        width={"100%"}
+        m={"0 !important"}
+        src={album?.images[0]?.url}
+        loading={"lazy"}
+      />
 
       <Flex
         color={"white"}

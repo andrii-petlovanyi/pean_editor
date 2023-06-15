@@ -18,7 +18,7 @@ interface Props {
 
 const MotionFlex = motion(Flex);
 
-export const FolderCardOptions = (props: Props) => {
+export const FolderCardOptions = (props: Props): JSX.Element => {
   const { folder, isHovered } = props;
   const { id } = folder;
   const toast = useToast({ variant: "custom" });

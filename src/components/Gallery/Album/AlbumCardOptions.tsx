@@ -1,6 +1,7 @@
 import {
   Flex,
   IconButton,
+  Tooltip,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
@@ -20,7 +21,7 @@ interface Props {
 
 const MotionFlex = motion(Flex);
 
-export const AlbumCardOptions = (props: Props) => {
+export const AlbumCardOptions = (props: Props): JSX.Element => {
   const { album, isHovered, folderId } = props;
   const { id } = album;
   const toast = useToast({ variant: "custom" });
@@ -62,15 +63,17 @@ export const AlbumCardOptions = (props: Props) => {
       borderTopLeftRadius={"0"}
       onClick={handleOptionsClick}
     >
-      <IconButton
-        variant={"shadow"}
-        aria-label={"Button for delete album"}
-        icon={<AiOutlineDelete />}
-        isLoading={isDeleting}
-        size={"sm"}
-        fontSize={"16px"}
-        onClick={handleDeletingAlbum}
-      />
+      <Tooltip label={"Delete album"}>
+        <IconButton
+          variant={"shadow"}
+          aria-label={"Button for delete album"}
+          icon={<AiOutlineDelete />}
+          isLoading={isDeleting}
+          size={"sm"}
+          fontSize={"16px"}
+          onClick={handleDeletingAlbum}
+        />
+      </Tooltip>
       <AlbumFormPopover
         album={album}
         folderId={folderId}

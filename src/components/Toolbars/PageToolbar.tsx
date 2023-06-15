@@ -8,7 +8,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-export const Toolbar = (props: Props): JSX.Element => {
+export const PageToolbar = (props: Props): JSX.Element => {
   const { children, isDisabled } = props;
   const navigate = useNavigate();
 

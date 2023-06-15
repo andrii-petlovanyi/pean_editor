@@ -21,9 +21,9 @@ export const ToggleColorMode = () => {
         size={"sm"}
         icon={useColorModeValue(<BsMoonStars />, <BsSun />)}
         color={useColorModeValue("white", "black")}
-        bg={useColorModeValue("accentWhite.400", "yellow.500")}
+        bg={useColorModeValue("accentWhite.400", "#FFCA80")}
         _hover={{
-          background: useColorModeValue("purple.400", "yellow.400"),
+          background: useColorModeValue("purple.400", "#FFE171"),
         }}
       >
         {isMode ? "Dark" : "Light"}

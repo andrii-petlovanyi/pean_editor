@@ -1,5 +1,5 @@
-export * from "./Routes/ProtectedRoute";
-export * from "./Routes/PublicRoute";
+export * from "./layout/Routes/ProtectedRoute";
+export * from "./layout/Routes/PublicRoute";
 export * from "./Gallery/Album/AlbumCard";
 export * from "./Gallery/ListWrapper";
 export * from "./Gallery/Folder/FolderCard";
@@ -9,4 +9,4 @@ export * from "./layout/SidebarOptions";
 export * from "./layout/links";
 export * from "./Login/LoginForm";
 export * from "./Search/Search";
-export * from "./Toolbar/Toolbar";
+export * from "./Toolbars/PageToolbar";

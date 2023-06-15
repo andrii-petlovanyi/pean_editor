@@ -1,8 +1,8 @@
-import { ReactNode, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 import { IAlbum } from "../types";
-import { AlbumCard, ListWrapper, Search, Toolbar } from "../components";
+import { AlbumCard, ListWrapper, Search, PageToolbar } from "../components";
 import { useGetOneGalleryFolderQuery } from "../redux/api/gallery.api";
 import { AlbumFormPopover } from "../components/Gallery/Album/AlbumFormPopover";
 import { AlbumActionType } from "../types/album.interface";
@@ -36,14 +36,14 @@ export const GalleryFolder = (): JSX.Element => {
 
   return (
     <Flex direction={"column"} gap={"15px"}>
-      <Toolbar>
+      <PageToolbar>
         <AlbumFormPopover
           title={"Create album"}
           folderId={folderId!}
           actionType={AlbumActionType.CREATE}
         />
         <Search setSearch={setSearch} />
-      </Toolbar>
+      </PageToolbar>
 
       <ListWrapper>{rendererContent}</ListWrapper>
     </Flex>

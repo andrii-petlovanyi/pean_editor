@@ -20,7 +20,7 @@ import {
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { useLogInUserMutation } from "../../redux/api/user.api";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { constants } from "../../config/constant";
+import { constants } from "../../constants/constants";
 import { User } from "../../types";
 import { messages } from "../../config/messages";
 

@@ -12,6 +12,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Tooltip,
   useColorModeValue,
   useDisclosure,
   useToast,
@@ -45,7 +46,7 @@ const folderSchema = yup.object().shape({
   placeholder: yup.mixed(),
 });
 
-export const FolderFormPopover = (props: Props) => {
+export const FolderFormPopover = (props: Props): JSX.Element => {
   const { folder, title, actionType } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast({ variant: "custom" });
@@ -123,20 +124,22 @@ export const FolderFormPopover = (props: Props) => {
 
   return (
     <>
-      <IconButton
-        variant={"shadow"}
-        aria-label={
-          action ? "Button for editing folder" : "Button for creating folder"
-        }
-        icon={action ? <MdEdit /> : <AiOutlineFolderAdd />}
-        isLoading={action ? isUpdating : isCreating}
-        size={"sm"}
-        fontSize={"18px"}
-        onClick={onOpen}
-      />
+      <Tooltip label={action ? "Edit folder" : "Create new folder"}>
+        <IconButton
+          variant={"shadow"}
+          aria-label={
+            action ? "Button for editing folder" : "Button for creating folder"
+          }
+          icon={action ? <MdEdit /> : <AiOutlineFolderAdd />}
+          isLoading={action ? isUpdating : isCreating}
+          size={"sm"}
+          fontSize={"18px"}
+          onClick={onOpen}
+        />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
-        <ModalOverlay />
+        <ModalOverlay bg={"blackAlpha.500"} backdropFilter={"blur(3px)"} />
         <ModalContent bg={useColorModeValue("", "primaryDark.300")}>
           <ModalHeader fontSize={"18px"}>{title}</ModalHeader>
           <ModalCloseButton size={"sm"} />

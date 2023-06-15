@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 import { IImage } from "../types";
-import { ListWrapper, Toolbar } from "../components";
+import { ListWrapper, PageToolbar } from "../components";
 import { useGetOneAlbumQuery } from "../redux/api/gallery.api";
 import { ImageCard } from "../components/Gallery/Album/Image/ImageCard";
 import { useMemo } from "react";
@@ -31,7 +31,7 @@ export const Album = (): JSX.Element => {
 
   return (
     <Flex direction={"column"} gap={"15px"}>
-      <Toolbar />
+      <PageToolbar />
       <ListWrapper>{content}</ListWrapper>
     </Flex>
   );

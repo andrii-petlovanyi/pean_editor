@@ -7,3 +7,4 @@ export * from "./Settings";
 export * from "./GalleryFolder";
 export * from "./Album";
 export * from "./Login";
+export * from "./PostEditor";

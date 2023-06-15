@@ -8,6 +8,7 @@ import {
   GalleryFolder,
   Home,
   Login,
+  PostEditor,
   Projects,
   Settings,
 } from "./screens";
@@ -15,10 +16,10 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Layout } from "./layout/Layout";
-import ProtectedRoute from "./components/Routes/ProtectedRoute";
-import PublicRoute from "./components/Routes/PublicRoute";
+import ProtectedRoute from "./components/layout/Routes/ProtectedRoute";
+import PublicRoute from "./components/layout/Routes/PublicRoute";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { constants } from "./config/constant";
+import { constants } from "./constants/constants";
 import { RootState } from "./redux/store";
 import { useGetUserQuery } from "./redux/api/user.api";
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="gallery/:folderId" element={<GalleryFolder />} />
             <Route path="gallery/:folderId/:albumId" element={<Album />} />
             <Route path="blog" element={<Blog />} />
+            <Route path="blog/create" element={<PostEditor />} />
             <Route path="projects" element={<Projects />} />
             <Route path="comments" element={<Comments />} />
             <Route path="settings" element={<Settings />} />
