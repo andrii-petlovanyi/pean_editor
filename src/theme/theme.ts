@@ -1,8 +1,9 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 import { GlobalStylesProps } from "../types/chakra.interface";
-import { buttonTheme } from "./extendeds/buttons.extend";
 import { inputTheme } from "./extendeds/inputs.extend";
+import { menuTheme } from "./extendeds/menu.extend";
+import { buttonTheme } from "./extendeds/buttons.extend";
 
 import "@fontsource/noto-sans-tc/300.css";
 import "@fontsource/noto-sans-tc/400.css";
@@ -61,6 +62,7 @@ const fonts = {
 };
 
 const components = {
+  Menu: menuTheme,
   Link: {
     baseStyle: {
       _hover: {
@@ -86,7 +88,6 @@ const components = {
     },
   },
   Button: buttonTheme,
-  IconButton: buttonTheme,
   Input: inputTheme,
 };
 

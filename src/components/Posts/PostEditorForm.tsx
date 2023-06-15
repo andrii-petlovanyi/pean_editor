@@ -12,7 +12,7 @@ import {
   Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { EditorToolbar } from "../Toolbars/EditorToolbar";
+import { EditorToolbar } from "../Toolbars/EditorToolbar/EditorToolbar";
 import { useDispatch } from "react-redux";
 import { updateViewerData } from "../../redux/slice/viewer.slice";
 import { useCallback, useEffect } from "react";
