@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Button,
   Flex,
@@ -17,28 +18,28 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+import { MdEdit } from "react-icons/md";
+import { AiOutlineFolderAdd } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { MdEdit } from "react-icons/md";
 import {
   IGalleryFolder,
-  FolderFormValues,
-  FolderActionType,
+  IFolderFormValues,
+  IFolderActionType,
 } from "../../../types";
 import {
   useCreateOneGalleryFolderMutation,
   useUpdateOneGalleryFolderMutation,
 } from "../../../redux/api/gallery.api";
 import { messages } from "../../../config/messages";
-import { AiOutlineFolderAdd } from "react-icons/ai";
 import { UploadWrapper } from "../../UploadWrapper/UploadWrapper";
 import { useOneImgPreview } from "../../../hooks";
 
 interface Props {
   folder?: Omit<IGalleryFolder, "albums">;
   title: string;
-  actionType: FolderActionType;
+  actionType: IFolderActionType;
 }
 
 const folderSchema = yup.object().shape({
@@ -46,12 +47,12 @@ const folderSchema = yup.object().shape({
   placeholder: yup.mixed(),
 });
 
-export const FolderFormPopover = (props: Props): JSX.Element => {
+export const FolderFormPopover: FC<Props> = (props) => {
   const { folder, title, actionType } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast({ variant: "custom" });
 
-  const action = actionType === FolderActionType.UPDATE;
+  const action = actionType === IFolderActionType.UPDATE;
 
   const [updateOneGalleryFolder, { isLoading: isUpdating }] =
     useUpdateOneGalleryFolderMutation();
@@ -65,7 +66,7 @@ export const FolderFormPopover = (props: Props): JSX.Element => {
     watch,
     reset,
     formState: { errors },
-  } = useForm<FolderFormValues>({
+  } = useForm<IFolderFormValues>({
     resolver: yupResolver(folderSchema),
     defaultValues: {
       folderName: folder ? folder.folderName : "",
@@ -75,7 +76,7 @@ export const FolderFormPopover = (props: Props): JSX.Element => {
   const file = watch("placeholder");
   const filePreview = useOneImgPreview(file);
 
-  const createFormData = (data: FolderFormValues) => {
+  const createFormData = (data: IFolderFormValues) => {
     const formData = new FormData();
     formData.append("folderName", data.folderName);
     formData.append("imgPlaceholder", data.placeholder?.[0] || "");
@@ -88,12 +89,12 @@ export const FolderFormPopover = (props: Props): JSX.Element => {
   };
 
   const performAction = async (formData: FormData) => {
-    if (actionType === FolderActionType.UPDATE && folder) {
+    if (actionType === IFolderActionType.UPDATE && folder) {
       return await updateOneGalleryFolder({
         folderId: folder.id,
         formData,
       });
-    } else if (actionType === FolderActionType.CREATE) {
+    } else if (actionType === IFolderActionType.CREATE) {
       return await createOneGalleryFolder({
         formData,
       });
@@ -109,7 +110,7 @@ export const FolderFormPopover = (props: Props): JSX.Element => {
     handleClose();
   };
 
-  const onSubmit = async (data: FolderFormValues) => {
+  const onSubmit = async (data: IFolderFormValues) => {
     const formData = createFormData(data);
 
     try {

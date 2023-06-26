@@ -1,17 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../../config/config";
 import {
-  IAlbum,
-  ICreateAlbum,
   ICreateGalleryFolder,
   ICreateResponse,
   IDeleteResponse,
   IGalleryFolder,
-  IUpdateAlbum,
+  IGalleryFolderResponse,
+  IGalleryFoldersResponse,
   IUpdateGalleryFolder,
   IUpdateResponse,
 } from "../../types";
 import { RootState } from "../store";
+import {
+  IAlbumListResponse,
+  IAlbumResponse,
+  ICreateAlbum,
+  IUpdateAlbum,
+} from "../../types/album.interface";
 
 const galleryApi = createApi({
   reducerPath: "galleryApi",
@@ -30,15 +35,13 @@ const galleryApi = createApi({
   tagTypes: ["gallery", "albums"],
 
   endpoints: (builder) => ({
-    getAllGalleryFolders: builder.query<Omit<IGalleryFolder, "albums">[], null>(
-      {
-        query: () => `/`,
-        keepUnusedDataFor: 30,
-        providesTags: ["gallery"],
-      }
-    ),
+    getAllGalleryFolders: builder.query<IGalleryFoldersResponse, null>({
+      query: () => `/`,
+      keepUnusedDataFor: 30,
+      providesTags: ["gallery"],
+    }),
 
-    getOneGalleryFolder: builder.query<IGalleryFolder, string>({
+    getOneGalleryFolder: builder.query<IGalleryFolderResponse, string>({
       query: (folderId) => `/${folderId}`,
       keepUnusedDataFor: 30,
       providesTags: ["gallery"],
@@ -76,9 +79,14 @@ const galleryApi = createApi({
       invalidatesTags: ["gallery"],
     }),
 
-    getOneAlbum: builder.query<IAlbum, string>({
+    getOneAlbum: builder.query<IAlbumResponse, string>({
       query: (albumId) => `/album/${albumId}`,
       keepUnusedDataFor: 30,
+      providesTags: ["albums"],
+    }),
+
+    searchAlbum: builder.query<IAlbumListResponse, string>({
+      query: (albumName: string) => `/album/search?albumName=${albumName}`,
       providesTags: ["albums"],
     }),
 
@@ -116,6 +124,7 @@ export const {
   useGetAllGalleryFoldersQuery,
   usePrefetch,
   useGetOneAlbumQuery,
+  useSearchAlbumQuery,
   useGetOneGalleryFolderQuery,
   useCreateOneAlbumMutation,
   useCreateOneGalleryFolderMutation,

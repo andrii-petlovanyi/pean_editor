@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   Flex,
@@ -17,7 +18,7 @@ interface Props {
 
 const MotionFlex = motion(Flex);
 
-export const ImageCardOptions = (props: Props): JSX.Element => {
+export const ImageCardOptions: FC<Props> = (props) => {
   const { albumId, imgId, isHovered } = props;
   const toast = useToast({ variant: "custom" });
 

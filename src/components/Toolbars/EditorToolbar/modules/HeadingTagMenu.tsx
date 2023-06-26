@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Icon,
   IconButton,
@@ -6,7 +7,6 @@ import {
   MenuItem,
   MenuList,
   Tooltip,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   LuHeading,
@@ -20,7 +20,7 @@ interface Props {
   setTag: (tag: string) => void;
 }
 
-export const HeaderTagMenu = (props: Props): JSX.Element => {
+export const HeadingTagMenu: FC<Props> = (props) => {
   const { setTag } = props;
   return (
     <Menu isLazy variant={"toolbar"}>

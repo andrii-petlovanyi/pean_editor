@@ -9,25 +9,28 @@ import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 
 export const Album = (): JSX.Element => {
   const { albumId } = useParams();
-  const { currentData, isFetching } = useGetOneAlbumQuery(albumId!);
+  const { data, isFetching } = useGetOneAlbumQuery(String(albumId), {
+    skip: !albumId,
+  });
+  const { album } = data || {};
 
   const content = useMemo(() => {
     switch (true) {
       case isFetching:
         return listOfFolderSkeletons;
-      case !!currentData:
-        return currentData?.images.map((image: IImage) => (
+      case !!album:
+        return album?.images.map((image: IImage) => (
           <ImageCard
             key={image.id}
             albumId={albumId!}
             image={image}
-            albumName={currentData.albumName}
+            albumName={album.albumName}
           />
         ));
       default:
         return <Text>...no images</Text>;
     }
-  }, [isFetching, currentData]);
+  }, [data]);
 
   return (
     <Flex direction={"column"} gap={"15px"}>

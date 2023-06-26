@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Flex, IconButton, useToast } from "@chakra-ui/react";
 import { FiSettings } from "react-icons/fi";
 import { ToggleColorMode } from "../../theme/toggleColorMode";
@@ -10,7 +11,7 @@ interface Props {
   isClosed: boolean;
 }
 
-export const SidebarOptions = (props: Props): JSX.Element => {
+export const SidebarOptions: FC<Props> = (props) => {
   const { isClosed } = props;
   const [logOutUser, { isLoading }] = useLogOutUserMutation();
   const { setIsExpired } = useLocalStorage(constants.ACCESS_TOKEN);

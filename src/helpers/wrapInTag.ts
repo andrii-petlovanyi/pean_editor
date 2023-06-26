@@ -14,6 +14,9 @@ export const wrapInTag = (tag: string) => {
   }
 
   const selectedText = value.substring(selectionStart, selectionEnd);
+
+  if (!selectedText.length) return;
+
   const beforeText = value.substring(0, selectionStart);
   const afterText = value.substring(selectionEnd);
 

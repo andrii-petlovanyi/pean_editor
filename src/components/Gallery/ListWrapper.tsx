@@ -1,11 +1,11 @@
+import { FC, ReactNode } from "react";
 import { SimpleGrid } from "@chakra-ui/react";
-import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
 }
 
-export const ListWrapper = (props: Props): JSX.Element => {
+export const ListWrapper: FC<Props> = (props) => {
   const { children } = props;
   return (
     <SimpleGrid

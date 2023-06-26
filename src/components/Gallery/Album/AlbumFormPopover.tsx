@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Button,
   Flex,
@@ -22,14 +23,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
-  AlbumActionType,
-  AlbumFormValues,
+  IAlbum,
+  IAlbumActionType,
+  IAlbumFormValues,
 } from "../../../types/album.interface";
 import {
   useCreateOneAlbumMutation,
   useUpdateOneAlbumMutation,
 } from "../../../redux/api/gallery.api";
-import { IAlbum } from "../../../types";
 import { UploadWrapper } from "../../UploadWrapper/UploadWrapper";
 import { useManyImagesPreview } from "../../../hooks/useManyImgsPreview";
 import { messages } from "../../../config/messages";
@@ -38,7 +39,7 @@ interface Props {
   title: string;
   folderId: string;
   album?: IAlbum;
-  actionType: AlbumActionType;
+  actionType: IAlbumActionType;
 }
 
 const albumSchema = yup.object().shape({
@@ -46,11 +47,11 @@ const albumSchema = yup.object().shape({
   images: yup.mixed(),
 });
 
-export const AlbumFormPopover = (props: Props): JSX.Element => {
+export const AlbumFormPopover: FC<Props> = (props) => {
   const { actionType, title, album, folderId } = props;
 
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const action = actionType === AlbumActionType.UPDATE;
+  const action = actionType === IAlbumActionType.UPDATE;
   const toast = useToast({ variant: "custom" });
 
   const [createOneAlbum, { isLoading: isCreating }] =
@@ -64,14 +65,14 @@ export const AlbumFormPopover = (props: Props): JSX.Element => {
     watch,
     reset,
     formState: { errors },
-  } = useForm<AlbumFormValues>({
+  } = useForm<IAlbumFormValues>({
     resolver: yupResolver(albumSchema),
   });
 
   const files = watch("images");
   const previewImages = useManyImagesPreview(files);
 
-  const createFormData = (data: AlbumFormValues) => {
+  const createFormData = (data: IAlbumFormValues) => {
     const formData = new FormData();
     formData.append("albumName", data.albumName);
 
@@ -90,12 +91,12 @@ export const AlbumFormPopover = (props: Props): JSX.Element => {
   };
 
   const performAction = async (formData: FormData) => {
-    if (actionType === AlbumActionType.UPDATE && album) {
+    if (actionType === IAlbumActionType.UPDATE && album) {
       return await updateOneAlbum({
         albumId: album.id,
         formData,
       });
-    } else if (actionType === AlbumActionType.CREATE) {
+    } else if (actionType === IAlbumActionType.CREATE) {
       return await createOneAlbum({
         folderId,
         formData,
@@ -112,7 +113,7 @@ export const AlbumFormPopover = (props: Props): JSX.Element => {
     handleClose();
   };
 
-  const onFormSubmit = async (data: AlbumFormValues) => {
+  const onFormSubmit = async (data: IAlbumFormValues) => {
     const formData = createFormData(data);
 
     try {

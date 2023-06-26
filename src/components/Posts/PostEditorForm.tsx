@@ -1,3 +1,6 @@
+import { FC, useCallback, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,10 +16,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { EditorToolbar } from "../Toolbars/EditorToolbar/EditorToolbar";
-import { useDispatch } from "react-redux";
 import { updateViewerData } from "../../redux/slice/viewer.slice";
-import { useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { debounce } from "../../helpers";
 
 const postSchema = yup.object().shape({
@@ -39,7 +39,7 @@ const postSchema = yup.object().shape({
   // metaKeywords: yup.array(),
 });
 
-export const PostEditorForm = (): JSX.Element => {
+export const PostEditorForm: FC = () => {
   const location = useLocation();
   const post = location.state;
   const dispatch = useDispatch();

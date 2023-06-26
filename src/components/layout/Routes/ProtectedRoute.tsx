@@ -1,9 +1,9 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { RootState } from "../../../redux/store";
 import { useGetUserQuery } from "../../../redux/api/user.api";
-import React from "react";
 
 function ProtectedRoute() {
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);

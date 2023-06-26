@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Flex,
   IconButton,
@@ -6,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { AiOutlineDelete } from "react-icons/ai";
-import { FolderActionType, IGalleryFolder } from "../../../types";
+import { IFolderActionType, IGalleryFolder } from "../../../types";
 import { FolderFormPopover } from "./FolderFormPopover";
 import { useDeleteOneGalleryFolderMutation } from "../../../redux/api/gallery.api";
 import { messages } from "../../../config/messages";
@@ -18,7 +19,7 @@ interface Props {
 
 const MotionFlex = motion(Flex);
 
-export const FolderCardOptions = (props: Props): JSX.Element => {
+export const FolderCardOptions: FC<Props> = (props) => {
   const { folder, isHovered } = props;
   const { id } = folder;
   const toast = useToast({ variant: "custom" });
@@ -71,7 +72,7 @@ export const FolderCardOptions = (props: Props): JSX.Element => {
       />
       <FolderFormPopover
         folder={folder}
-        actionType={FolderActionType.UPDATE}
+        actionType={IFolderActionType.UPDATE}
         title={"Edit folder"}
       />
     </MotionFlex>

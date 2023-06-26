@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { Flex, IconButton, useColorModeValue } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
@@ -8,7 +8,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-export const PageToolbar = (props: Props): JSX.Element => {
+export const PageToolbar: FC<Props> = (props) => {
   const { children, isDisabled } = props;
   const navigate = useNavigate();
 

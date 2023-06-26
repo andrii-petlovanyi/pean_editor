@@ -6,8 +6,9 @@ import {
   BsTypeBold,
   BsTypeItalic,
 } from "react-icons/bs";
-import { HeaderTagMenu } from "./components/HeaderTagMenu";
+import { HeadingTagMenu } from "./modules/HeadingTagMenu";
 import { wrapInTag } from "../../../helpers/wrapInTag";
+import { AddImage } from "./modules/AddImage/AddImage";
 
 interface Props {
   children?: ReactNode;
@@ -19,6 +20,8 @@ export const EditorToolbar = (props: Props): JSX.Element => {
 
   const handleChangeSelectedText = (tag: string) => {
     const modifiedText = wrapInTag(tag);
+
+    if (!modifiedText?.length) return;
 
     setValue("article", modifiedText);
   };
@@ -41,7 +44,7 @@ export const EditorToolbar = (props: Props): JSX.Element => {
           onClick={() => handleChangeSelectedText("p")}
         />
       </Tooltip>
-      <HeaderTagMenu setTag={handleChangeSelectedText} />
+      <HeadingTagMenu setTag={handleChangeSelectedText} />
       <Tooltip label={"Bold"}>
         <IconButton
           aria-label={"Bold text"}
@@ -66,6 +69,7 @@ export const EditorToolbar = (props: Props): JSX.Element => {
           onClick={() => handleChangeSelectedText("code")}
         />
       </Tooltip>
+      <AddImage />
       {children}
     </Flex>
   );

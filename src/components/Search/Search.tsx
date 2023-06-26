@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import {
   Icon,
   Input,
@@ -18,7 +18,7 @@ interface Props {
 
 const MotionInput = motion(Input);
 
-export const Search = (props: Props): JSX.Element => {
+export const Search: FC<Props> = (props) => {
   const { isLoading, setSearch } = props;
 
   const inputControls = useAnimation();

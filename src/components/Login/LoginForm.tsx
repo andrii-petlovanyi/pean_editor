@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -39,7 +39,7 @@ const loginSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-export const LoginForm = (): JSX.Element => {
+export const LoginForm: FC = () => {
   const [logInUser, { isLoading }] = useLogInUserMutation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { setToken, setIsExpired } = useLocalStorage(constants.ACCESS_TOKEN);

@@ -1,5 +1,5 @@
+import { FC, createElement } from "react";
 import { Image } from "@chakra-ui/react";
-import { createElement } from "react";
 
 interface Props {
   width?: number;
@@ -9,7 +9,7 @@ interface Props {
   priority?: string;
 }
 
-export const ImageViewer = (props: Props) => {
+export const ImageViewer: FC<Props> = (props) => {
   const { alt, src, width, height, priority, ...rest } = props;
 
   const imageElement = createElement(Image, {

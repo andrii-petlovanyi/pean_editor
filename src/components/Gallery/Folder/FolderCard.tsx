@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Flex as MotionFlex,
@@ -13,7 +13,7 @@ interface Props {
   folder: Omit<IGalleryFolder, "albums">;
 }
 
-export const FolderCard = ({ folder }: Props): JSX.Element => {
+export const FolderCard: FC<Props> = ({ folder }) => {
   const { id, imgPlaceholder, folderName } = folder;
   const [isHovered, setIsHovered] = useState<boolean>(false);
 

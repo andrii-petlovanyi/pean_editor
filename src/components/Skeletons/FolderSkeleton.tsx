@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Skeleton,
   SkeletonCircle,
@@ -5,7 +6,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-export const FolderSkeleton = (): JSX.Element => {
+export const FolderSkeleton: FC = () => {
   return (
     <Stack
       width={"100%"}

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Flex, Text } from "@chakra-ui/react";
-import { FolderActionType, IGalleryFolder } from "../types";
+import { IFolderActionType, IGalleryFolder } from "../types";
 import { FolderCard, ListWrapper, Search, PageToolbar } from "../components";
 import { FolderFormPopover } from "../components/Gallery/Folder/FolderFormPopover";
 import { useGetAllGalleryFoldersQuery } from "../redux/api/gallery.api";
@@ -9,15 +9,15 @@ import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 export const Gallery = (): JSX.Element => {
   const [search, setSearch] = useState<string>();
   const { data, isFetching } = useGetAllGalleryFoldersQuery(null);
-
+  const { folders } = data || {};
   console.log(search);
 
   const content = useMemo(() => {
     switch (true) {
       case isFetching:
         return listOfFolderSkeletons;
-      case data && data.length > 0:
-        return data?.map((folder: Omit<IGalleryFolder, "albums">) => (
+      case folders && folders.length > 0:
+        return folders?.map((folder: Omit<IGalleryFolder, "albums">) => (
           <FolderCard key={folder.id} folder={folder} />
         ));
       default:
@@ -31,7 +31,7 @@ export const Gallery = (): JSX.Element => {
         <FolderFormPopover
           folder={undefined}
           title={"Create folder"}
-          actionType={FolderActionType.CREATE}
+          actionType={IFolderActionType.CREATE}
         />
         <Search setSearch={setSearch} />
       </PageToolbar>

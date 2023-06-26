@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Flex,
   IconButton,
@@ -7,11 +8,10 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { AiOutlineDelete } from "react-icons/ai";
-import { IAlbum } from "../../../types";
 import { useDeleteOneAlbumMutation } from "../../../redux/api/gallery.api";
 import { messages } from "../../../config/messages";
 import { AlbumFormPopover } from "./AlbumFormPopover";
-import { AlbumActionType } from "../../../types/album.interface";
+import { IAlbum, IAlbumActionType } from "../../../types/album.interface";
 
 interface Props {
   album: IAlbum;
@@ -21,7 +21,7 @@ interface Props {
 
 const MotionFlex = motion(Flex);
 
-export const AlbumCardOptions = (props: Props): JSX.Element => {
+export const AlbumCardOptions: FC<Props> = (props) => {
   const { album, isHovered, folderId } = props;
   const { id } = album;
   const toast = useToast({ variant: "custom" });
@@ -77,7 +77,7 @@ export const AlbumCardOptions = (props: Props): JSX.Element => {
       <AlbumFormPopover
         album={album}
         folderId={folderId}
-        actionType={AlbumActionType.UPDATE}
+        actionType={IAlbumActionType.UPDATE}
         title={"Edit folder"}
       />
     </MotionFlex>

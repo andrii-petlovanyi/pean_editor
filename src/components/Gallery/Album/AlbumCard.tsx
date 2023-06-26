@@ -1,15 +1,15 @@
-import { Flex, Image, Stack, useColorModeValue } from "@chakra-ui/react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
+import { Flex, Image, Stack, useColorModeValue } from "@chakra-ui/react";
 import { AlbumCardOptions } from "./AlbumCardOptions";
-import { IAlbum } from "../../../types";
-import { useState } from "react";
+import { IAlbum } from "src/types/album.interface";
 
 interface Props {
   album: IAlbum;
   folderId: string;
 }
 
-export const AlbumCard = (props: Props): JSX.Element => {
+export const AlbumCard: FC<Props> = (props) => {
   const { album, folderId } = props;
   const [isHovered, setIsHovered] = useState<boolean>(false);
 

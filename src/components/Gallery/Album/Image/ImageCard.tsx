@@ -1,14 +1,14 @@
+import { FC, useState } from "react";
 import { Image, Stack } from "@chakra-ui/react";
-import { IImage } from "../../../../types";
+import { IImage } from "src/types";
 import { ImageCardOptions } from "./ImageCardOptions";
-import { useState } from "react";
 
 interface Props {
   image: IImage;
   albumId: string;
   albumName: string;
 }
-export const ImageCard = (props: Props): JSX.Element => {
+export const ImageCard: FC<Props> = (props) => {
   const { image, albumId, albumName } = props;
   const [isHovered, setIsHovered] = useState<boolean>(false);
 

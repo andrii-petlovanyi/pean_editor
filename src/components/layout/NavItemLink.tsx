@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { NavLink, matchPath, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Flex, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
@@ -11,7 +12,7 @@ interface Props {
 const AnimateFlex = motion(Flex);
 const AnimateText = motion(Text);
 
-export const NavItemLink = (props: Props): JSX.Element => {
+export const NavItemLink: FC<Props> = (props) => {
   const { link, isClosed } = props;
   const location = useLocation().pathname;
   const nestedLocation = "/" + location.split("/")[1];

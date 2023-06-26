@@ -1,12 +1,12 @@
+import { FC, ReactNode } from "react";
 import { Flex, Icon, useColorModeValue } from "@chakra-ui/react";
-import { ReactNode } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
 interface Props {
   children: ReactNode;
 }
 
-export const UploadWrapper = (props: Props): JSX.Element => {
+export const UploadWrapper: FC<Props> = (props) => {
   return (
     <Flex
       border={"1px solid"}

@@ -1,11 +1,10 @@
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
-import { IAlbum } from "../types";
 import { AlbumCard, ListWrapper, Search, PageToolbar } from "../components";
 import { useGetOneGalleryFolderQuery } from "../redux/api/gallery.api";
 import { AlbumFormPopover } from "../components/Gallery/Album/AlbumFormPopover";
-import { AlbumActionType } from "../types/album.interface";
+import { IAlbum, IAlbumActionType } from "../types/album.interface";
 import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 
 export const GalleryFolder = (): JSX.Element => {
@@ -14,25 +13,23 @@ export const GalleryFolder = (): JSX.Element => {
 
   console.log(search);
 
-  const { currentData, isFetching } = useGetOneGalleryFolderQuery(
-    folderId || "",
-    {
-      skip: folderId == undefined,
-    }
-  );
+  const { data, isFetching } = useGetOneGalleryFolderQuery(String(folderId), {
+    skip: !folderId,
+  });
+  const { folder } = data || {};
 
   const rendererContent = useMemo(() => {
     switch (true) {
       case isFetching:
         return listOfFolderSkeletons;
-      case !!currentData?.albums?.length:
-        return currentData?.albums?.map((album: IAlbum) => (
+      case !!folder?.albums?.length:
+        return folder?.albums?.map((album: IAlbum) => (
           <AlbumCard key={album.id} album={album} folderId={folderId!} />
         ));
       default:
         return <Text>...no albums</Text>;
     }
-  }, [currentData]);
+  }, [folder]);
 
   return (
     <Flex direction={"column"} gap={"15px"}>
@@ -40,7 +37,7 @@ export const GalleryFolder = (): JSX.Element => {
         <AlbumFormPopover
           title={"Create album"}
           folderId={folderId!}
-          actionType={AlbumActionType.CREATE}
+          actionType={IAlbumActionType.CREATE}
         />
         <Search setSearch={setSearch} />
       </PageToolbar>
