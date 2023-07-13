@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Image, Stack } from "@chakra-ui/react";
-import { IImage } from "src/types";
 import { ImageCardOptions } from "./ImageCardOptions";
+import { IImage } from "../../../../types";
 
 interface Props {
   image: IImage;

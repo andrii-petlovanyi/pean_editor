@@ -53,7 +53,7 @@ function App() {
             <Route path="gallery/:folderId" element={<GalleryFolder />} />
             <Route path="gallery/:folderId/:albumId" element={<Album />} />
             <Route path="blog" element={<Blog />} />
-            <Route path="blog/create" element={<PostEditor />} />
+            <Route path="blog/editor" element={<PostEditor />} />
             <Route path="projects" element={<Projects />} />
             <Route path="comments" element={<Comments />} />
             <Route path="settings" element={<Settings />} />

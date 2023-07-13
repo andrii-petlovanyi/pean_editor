@@ -5,7 +5,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Text,
 } from "@chakra-ui/react";
 import {
   ChangeEvent,
@@ -18,9 +17,9 @@ import {
 } from "react";
 import { MdSearch } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { debounce } from "../../../../../helpers";
-import { useSearchAlbumQuery } from "../../../../../redux/api/gallery.api";
-import { IAlbum } from "../../../../../types/album.interface";
+import { debounce } from "../../../../../../helpers";
+import { useSearchAlbumQuery } from "../../../../../../redux/api/gallery.api";
+import { SearchAlbumList } from "./SearchAlbumList";
 
 interface Props {
   isOpen: boolean;
@@ -28,8 +27,10 @@ interface Props {
 
 export const SearchAlbum: FC<Props> = memo((props) => {
   const { isOpen } = props;
-  const title = useSelector((state: any) => state.viewer.viewerData.title);
+  const title = useSelector((state: any) => state.viewer.post.data.title);
   const [searchAlbum, setSearchAlbum] = useState<string>("");
+
+  console.log(title);
 
   useEffect(() => {
     if (isOpen) {
@@ -51,9 +52,7 @@ export const SearchAlbum: FC<Props> = memo((props) => {
   const renderers = {
     error: <>...something went wrong</>,
     isLoading: <>...loading</>,
-    hasAlbums: albums?.map((album: IAlbum) => (
-      <Text key={album.id}>{album.albumName}</Text>
-    )),
+    hasAlbums: <SearchAlbumList albums={albums} />,
     noAlbums: <>...no albums with this name</>,
   };
 
@@ -75,7 +74,11 @@ export const SearchAlbum: FC<Props> = memo((props) => {
   return (
     <Flex direction={"column"} gap={"20px"} py={"10px"}>
       <InputGroup size={"sm"}>
-        <Input defaultValue={searchAlbum} onChange={handleSearchDebounced} />
+        <Input
+          defaultValue={searchAlbum}
+          onChange={handleSearchDebounced}
+          borderRadius={"sm"}
+        />
         <InputRightElement>
           <IconButton
             icon={<MdSearch />}

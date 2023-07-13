@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import isEqual from "lodash.isequal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,8 +16,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { EditorToolbar } from "../Toolbars/EditorToolbar/EditorToolbar";
-import { updateViewerData } from "../../redux/slice/viewer.slice";
+import { updatePostData } from "../../redux/slice/viewer.slice";
 import { debounce } from "../../helpers";
+import { useCreatePostMutation } from "../../redux/api/posts.api";
+import { useRequest } from "../../hooks/useRequest";
 
 const postSchema = yup.object().shape({
   title: yup
@@ -33,15 +35,11 @@ const postSchema = yup.object().shape({
     .string()
     .min(100, "Min article length is 100 symbols")
     .required("Article is required"),
-
-  //TODO: for future features
-  // metaTitle: yup.string(),
-  // metaKeywords: yup.array(),
 });
 
 export const PostEditorForm: FC = () => {
-  const location = useLocation();
-  const post = location.state;
+  const post = useSelector((state: any) => state.viewer.post.data);
+  const albumId = useSelector((state: any) => state.viewer.post.albumId);
   const dispatch = useDispatch();
 
   const {
@@ -57,27 +55,33 @@ export const PostEditorForm: FC = () => {
       title: post?.title || "",
       description: post?.description || "",
       article: post?.article || "",
-
-      //TODO: for future features
-      // metaTitle: post?.metaTitle || "",
-      // metaKeywords: post?.metaKeywords || "",
     },
   });
 
-  const handleSubmitForm = () => {};
-
+  const [createPost, { isLoading }] = useCreatePostMutation();
+  const handleCreatePost = useRequest(createPost);
   const watchFormValues = watch();
+
+  const handleSubmitForm = async () => {
+    await handleCreatePost({ ...watchFormValues, albumId });
+  };
 
   const updateViewerDataCallback = useCallback(
     debounce((data: Pick<IPost, "title" | "description" | "article">) => {
-      dispatch(updateViewerData(data));
+      dispatch(updatePostData(data));
     }, 500),
     [dispatch]
   );
 
+  const handleResetForm = () => {
+    reset();
+    dispatch(updatePostData(null));
+  };
+
   useEffect(() => {
+    if (isEqual(post, watchFormValues)) return;
     updateViewerDataCallback(watchFormValues);
-  }, [watchFormValues, updateViewerDataCallback]);
+  }, [watchFormValues]);
 
   return (
     <Flex
@@ -107,7 +111,7 @@ export const PostEditorForm: FC = () => {
           <FormControl isInvalid={!!errors.article}>
             <Textarea
               id={"article_editor"}
-              minH={"230px"}
+              minH={"calc(100svh - 350px)"}
               placeholder={"Please enter post article"}
               {...register("article")}
             />
@@ -116,7 +120,7 @@ export const PostEditorForm: FC = () => {
         </Stack>
         <Flex justify={"space-between"} mt={"20px"}>
           <Button
-            onClick={() => reset()}
+            onClick={handleResetForm}
             size={"sm"}
             bg={useColorModeValue("accentWhite.400", "red.500")}
             _hover={{
@@ -128,6 +132,7 @@ export const PostEditorForm: FC = () => {
           <Button
             type={"submit"}
             size={"sm"}
+            isLoading={isLoading}
             bg={useColorModeValue("accentWhite.400", "accentDark.400")}
             _hover={{
               backgroundColor: useColorModeValue("accentWhite.300", "teal.600"),

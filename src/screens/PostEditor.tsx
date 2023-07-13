@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Divider, Flex, Grid, IconButton, Tooltip } from "@chakra-ui/react";
 import { VscOpenPreview } from "react-icons/vsc";
 import { MdOutlineClosedCaptionDisabled } from "react-icons/md";
 import { PageToolbar } from "../components";
 import { PostEditorForm } from "../components/Posts/PostEditorForm";
 import { ContentViewer } from "../components/ContentViewer/ContentViewer";
+import { useDispatch, useSelector } from "react-redux";
+import { updateShowPostViewer } from "../redux/slice/viewer.slice";
 
 export const PostEditor = (): JSX.Element => {
-  const [showViewer, setShowViewer] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const showViewer = useSelector((state: any) => state.viewer.post.showViewer);
+
+  const handleUpdateShowViewer = () => {
+    dispatch(updateShowPostViewer(!showViewer));
+  };
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.metaKey && event.key === "t") {
       event.preventDefault();
-      setShowViewer(!showViewer);
+      handleUpdateShowViewer();
     }
   };
 
@@ -21,7 +28,7 @@ export const PostEditor = (): JSX.Element => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyPress, showViewer]);
 
   return (
     <Flex direction={"column"} gap={"15px"}>
@@ -39,7 +46,7 @@ export const PostEditor = (): JSX.Element => {
                 <VscOpenPreview />
               )
             }
-            onClick={() => setShowViewer(!showViewer)}
+            onClick={handleUpdateShowViewer}
           />
         </Tooltip>
       </PageToolbar>

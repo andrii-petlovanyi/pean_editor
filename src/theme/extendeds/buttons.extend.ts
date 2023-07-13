@@ -19,7 +19,7 @@ const comeBackIB = defineStyle({
   fontSize: "18px",
 });
 
-const toolbarIB = defineStyle(({ colorMode }) => ({
+const toolbarIB = defineStyle(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

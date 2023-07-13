@@ -9,10 +9,13 @@ import {
 import { HeadingTagMenu } from "./modules/HeadingTagMenu";
 import { wrapInTag } from "../../../helpers/wrapInTag";
 import { AddImage } from "./modules/AddImage/AddImage";
+import { UseFormSetValue } from "react-hook-form";
+import { IPostForm } from "../../../types/posts.interface";
 
 interface Props {
   children?: ReactNode;
-  setValue?: any;
+  setValue: UseFormSetValue<IPostForm>;
+
 }
 
 export const EditorToolbar = (props: Props): JSX.Element => {
@@ -69,7 +72,7 @@ export const EditorToolbar = (props: Props): JSX.Element => {
           onClick={() => handleChangeSelectedText("code")}
         />
       </Tooltip>
-      <AddImage />
+      <AddImage setValue={setValue} />
       {children}
     </Flex>
   );

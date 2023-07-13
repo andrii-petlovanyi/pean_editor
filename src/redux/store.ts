@@ -5,14 +5,17 @@ import {
 } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from "./slice/user.slice";
-import viewerReducer from "./slice/viewer.slice";
 import userApi from "./api/user.api";
 import galleryApi from "./api/gallery.api";
 import postsApi from "./api/posts.api";
 import projectsApi from "./api/projects.api";
+import persistedViewerReducer from "./persist.config";
+import { persistStore } from "redux-persist";
 
 const middleware = [
-  ...getDefaultMiddleware({}),
+  ...getDefaultMiddleware({
+    serializableCheck: false,
+  }),
   postsApi.middleware,
   projectsApi.middleware,
   userApi.middleware,
@@ -21,7 +24,7 @@ const middleware = [
 
 const reducers = combineReducers({
   auth: authReducer,
-  viewer: viewerReducer,
+  viewer: persistedViewerReducer,
   [userApi.reducerPath]: userApi.reducer,
   [postsApi.reducerPath]: postsApi.reducer,
   [projectsApi.reducerPath]: projectsApi.reducer,
@@ -34,5 +37,7 @@ export const store = configureStore({
 });
 
 setupListeners(store.dispatch);
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,4 +1,4 @@
-import { IAlbum } from ".";
+import { IAlbum } from "./album.interface";
 
 export interface IProject {
   id: string;

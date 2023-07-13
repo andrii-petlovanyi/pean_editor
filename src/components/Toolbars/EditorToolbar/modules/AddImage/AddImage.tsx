@@ -11,11 +11,18 @@ import {
 } from "@chakra-ui/react";
 import { MdAddAPhoto } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { SearchAlbum } from "./SearchAlbum";
+import { UseFormSetValue } from "react-hook-form";
+import { SearchAlbum } from "./SearchAlbum/SearchAlbum";
+import { ImageSelector } from "./ImageSelector/ImageSelector";
+import { IPostForm } from "../../../../../types/posts.interface";
 
-export const AddImage: FC = memo(() => {
+interface Props {
+  setValue: UseFormSetValue<IPostForm>;
+}
+
+export const AddImage: FC<Props> = memo(({ setValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const albumId = useSelector((state: any) => state.viewer.viewerData.albumId);
+  const albumId = useSelector((state: any) => state.viewer.post?.albumId);
 
   return (
     <>
@@ -34,7 +41,11 @@ export const AddImage: FC = memo(() => {
           borderBottomLeftRadius={"xl"}
         >
           <DrawerBody>
-            {albumId ? <>for future</> : <SearchAlbum isOpen={isOpen} />}
+            {albumId ? (
+              <ImageSelector setValue={setValue} />
+            ) : (
+              <SearchAlbum isOpen={isOpen} />
+            )}
           </DrawerBody>
           <DrawerFooter>Footer</DrawerFooter>
         </DrawerContent>

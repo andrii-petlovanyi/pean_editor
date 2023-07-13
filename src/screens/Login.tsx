@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, Stack, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-
 import { LoginForm } from "../components";
 
 export const Login = (): JSX.Element => {

@@ -10,6 +10,7 @@ import { MdPlaylistAdd } from "react-icons/md";
 export const Blog = (): JSX.Element => {
   const [search, setSearch] = useState<string>();
   const { data, isFetching } = useAllPostsQuery(null);
+  const { posts } = data ?? {};
   const navigate = useNavigate();
 
   console.log(search);
@@ -18,8 +19,8 @@ export const Blog = (): JSX.Element => {
     switch (true) {
       case isFetching:
         return <>...loading</>;
-      case data && data.length > 0:
-        return data.map((post: IPost) => (
+      case posts && posts.length > 0:
+        return posts?.map((post: IPost) => (
           <PostCard key={post.id} post={post} />
         ));
       default:
@@ -30,7 +31,7 @@ export const Blog = (): JSX.Element => {
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
     if (event.metaKey && event.key === "n") {
       event.preventDefault();
-      navigate("/blog/create");
+      navigate("/blog/editor");
     }
   }, []);
 
@@ -44,7 +45,7 @@ export const Blog = (): JSX.Element => {
   return (
     <Flex direction={"column"} gap={"15px"}>
       <PageToolbar isDisabled={true}>
-        <Link as={NavLink} to={"/blog/create"} fontSize={"20px"}>
+        <Link as={NavLink} to={"/blog/editor"} fontSize={"20px"}>
           <MdPlaylistAdd />
         </Link>
         <Search setSearch={setSearch} />

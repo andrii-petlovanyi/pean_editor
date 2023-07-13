@@ -4,7 +4,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-const toolbar = defineStyle(({ colorMode }) => ({
+const toolbar = defineStyle(() => ({
   list: {
     minW: "0",
     width: "40px",

@@ -4,14 +4,21 @@ import { Provider } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import App from "./App.tsx";
 import theme from "./theme/theme.ts";
-import { store } from "./redux/store.ts";
+import { persistor, store } from "./redux/store.ts";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { config } from "./config/config.ts";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <HashRouter>
     <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Provider>
+      </GoogleOAuthProvider>
     </ChakraProvider>
   </HashRouter>
 );

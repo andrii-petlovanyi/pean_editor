@@ -4,7 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
   Button,
+  Center,
   Checkbox,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -14,15 +16,18 @@ import {
   InputRightElement,
   Link,
   Stack,
+  Text,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
+import { FcGoogle } from "react-icons/fc";
 import { useLogInUserMutation } from "../../redux/api/user.api";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { constants } from "../../constants/constants";
 import { User } from "../../types";
 import { messages } from "../../config/messages";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const loginSchema = yup.object().shape({
   nickname: yup
@@ -77,6 +82,10 @@ export const LoginForm: FC = () => {
       });
     }
   }
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  });
 
   return (
     <Stack
@@ -133,7 +142,7 @@ export const LoginForm: FC = () => {
             Forgot password?
           </Link>
         </Stack>
-        <Stack spacing={2} justify={"center"}>
+        <Flex direction={"column"} gap={2} justify={"center"}>
           <Button
             bg={useColorModeValue("accentWhite.400", "accentDark.400")}
             color={"white"}
@@ -146,7 +155,19 @@ export const LoginForm: FC = () => {
           >
             Sign in
           </Button>
-        </Stack>
+          <Text mx={"auto"}>or</Text>
+          <Button
+            w={"full"}
+            maxW={"md"}
+            variant={"outline"}
+            leftIcon={<FcGoogle />}
+            onClick={() => handleGoogleLogin()}
+          >
+            <Center>
+              <Text>Sign in with Google</Text>
+            </Center>
+          </Button>
+        </Flex>
       </Stack>
     </Stack>
   );
