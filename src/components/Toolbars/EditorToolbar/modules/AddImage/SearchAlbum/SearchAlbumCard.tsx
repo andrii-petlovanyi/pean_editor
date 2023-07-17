@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { Flex, IconButton, Image, Text, Tooltip } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
-import { IAlbum } from "../../../../../../types/album.interface";
+import { IAlbum } from "../../../../../../types";
 import { addPostAlbumId } from "../../../../../../redux/slice/viewer.slice";
 
 interface Props {

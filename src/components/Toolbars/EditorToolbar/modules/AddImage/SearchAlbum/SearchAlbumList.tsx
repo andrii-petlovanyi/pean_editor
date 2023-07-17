@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IAlbum } from "../../../../../../types/album.interface";
+import { IAlbum } from "../../../../../../types";
 import { Flex } from "@chakra-ui/react";
 import { SearchAlbumCard } from "./SearchAlbumCard";
 

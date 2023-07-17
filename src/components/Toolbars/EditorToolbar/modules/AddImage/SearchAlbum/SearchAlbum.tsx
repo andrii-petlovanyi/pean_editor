@@ -30,8 +30,6 @@ export const SearchAlbum: FC<Props> = memo((props) => {
   const title = useSelector((state: any) => state.viewer.post.data.title);
   const [searchAlbum, setSearchAlbum] = useState<string>("");
 
-  console.log(title);
-
   useEffect(() => {
     if (isOpen) {
       setSearchAlbum(title ?? "");

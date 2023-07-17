@@ -4,7 +4,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import { AlbumCard, ListWrapper, Search, PageToolbar } from "../components";
 import { useGetOneGalleryFolderQuery } from "../redux/api/gallery.api";
 import { AlbumFormPopover } from "../components/Gallery/Album/AlbumFormPopover";
-import { IAlbum, IAlbumActionType } from "../types/album.interface";
+import { IAlbum, IAlbumActionType } from "../types";
 import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 
 export const GalleryFolder = (): JSX.Element => {

@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { GlobalStylesProps } from "../types/chakra.interface";
+import { GlobalStylesProps } from "../types";
 import { inputTheme } from "./extendeds/inputs.extend";
 import { menuTheme } from "./extendeds/menu.extend";
 import { buttonTheme } from "./extendeds/buttons.extend";

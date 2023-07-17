@@ -5,6 +5,7 @@ export interface IPostForm {
   description: string;
   article: string;
   metaTitle?: string;
+  metaDescription?: string;
   metaKeywords?: string;
   albumId: string;
 }
@@ -16,7 +17,7 @@ export interface IPost extends Omit<IPostForm, "albumId"> {
   createdAt: Date;
   updatedAt: Date;
   comments: string[];
-  album: IAlbum[];
+  album: IAlbum;
 }
 
 export interface IPostResponseList {

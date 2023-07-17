@@ -1,13 +1,12 @@
 import { FC, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UseFormSetValue } from "react-hook-form";
+import { MdDelete } from "react-icons/md";
 import { useGetOneAlbumQuery } from "../../../../../../redux/api/gallery.api";
 import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
 import { resetPostAlbumId } from "../../../../../../redux/slice/viewer.slice";
-import { MdDelete } from "react-icons/md";
-import { IImage } from "../../../../../../types";
+import { IImage, IPostForm } from "../../../../../../types";
 import { ImageSelectorCard } from "./ImageSelectorCard";
-import { IPostForm } from "../../../../../../types/posts.interface";
 
 interface Props {
   setValue: UseFormSetValue<IPostForm>;

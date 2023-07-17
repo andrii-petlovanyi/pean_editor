@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
-import { IHeadingSize } from "../../../types/toolbar.interface";
+import { IHeadingSize } from "../../../types";
 
 interface Props {
   size: IHeadingSize;

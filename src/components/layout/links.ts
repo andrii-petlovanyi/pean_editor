@@ -1,7 +1,7 @@
 import { HiOutlineHome, HiOutlineBriefcase } from "react-icons/hi";
 import { AiOutlinePicture, AiOutlineComment } from "react-icons/ai";
 import { BsPostcard } from "react-icons/bs";
-import { INavItemLink } from "../../types/layout.interface";
+import { INavItemLink } from "../../types";
 
 export const links: Array<INavItemLink> = [
   {

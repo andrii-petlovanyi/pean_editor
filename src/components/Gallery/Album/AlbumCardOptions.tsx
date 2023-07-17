@@ -11,7 +11,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useDeleteOneAlbumMutation } from "../../../redux/api/gallery.api";
 import { messages } from "../../../config/messages";
 import { AlbumFormPopover } from "./AlbumFormPopover";
-import { IAlbum, IAlbumActionType } from "../../../types/album.interface";
+import { IAlbum, IAlbumActionType } from "../../../types";
 
 interface Props {
   album: IAlbum;

@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { Flex, Image, Stack, useColorModeValue } from "@chakra-ui/react";
 import { AlbumCardOptions } from "./AlbumCardOptions";
-import { IAlbum } from "../../../types/album.interface";
+import { IAlbum } from "../../../types";
 
 interface Props {
   album: IAlbum;

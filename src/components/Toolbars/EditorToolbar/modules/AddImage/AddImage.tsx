@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { UseFormSetValue } from "react-hook-form";
 import { SearchAlbum } from "./SearchAlbum/SearchAlbum";
 import { ImageSelector } from "./ImageSelector/ImageSelector";
-import { IPostForm } from "../../../../../types/posts.interface";
+import { IPostForm } from "../../../../../types";
 
 interface Props {
   setValue: UseFormSetValue<IPostForm>;

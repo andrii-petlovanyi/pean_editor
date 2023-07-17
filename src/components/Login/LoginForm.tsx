@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import {
   Button,
   Center,
@@ -20,6 +19,7 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
+import { useGoogleLogin } from "@react-oauth/google";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 import { useLogInUserMutation } from "../../redux/api/user.api";
@@ -27,22 +27,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { constants } from "../../constants/constants";
 import { User } from "../../types";
 import { messages } from "../../config/messages";
-import { useGoogleLogin } from "@react-oauth/google";
-
-const loginSchema = yup.object().shape({
-  nickname: yup
-    .string()
-    .trim()
-    .min(3, "Minimal username length is 3 symbols")
-    .max(32, "Max username length is 32 symbols")
-    .required("Username is required"),
-  password: yup
-    .string()
-    .trim()
-    .min(8, "Minimal password length is 8 symbols")
-    .max(32, "Max password length is 32 symbols")
-    .required("Password is required"),
-});
+import { loginSchema } from "./loginSchema";
 
 export const LoginForm: FC = () => {
   const [logInUser, { isLoading }] = useLogInUserMutation();

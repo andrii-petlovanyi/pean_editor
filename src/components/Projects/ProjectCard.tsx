@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IProject } from "../../types/projects.interface";
+import { IProject } from "../../types";
 
 interface Props {
   project: IProject;

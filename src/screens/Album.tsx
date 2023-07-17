@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { IImage } from "../types";
 import { ListWrapper, PageToolbar } from "../components";
 import { useGetOneAlbumQuery } from "../redux/api/gallery.api";
 import { ImageCard } from "../components/Gallery/Album/Image/ImageCard";
-import { useMemo } from "react";
 import { listOfFolderSkeletons } from "../components/Skeletons/FolderSkeleton";
 
 export const Album = (): JSX.Element => {

@@ -22,11 +22,7 @@ import { MdAddPhotoAlternate, MdEdit } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  IAlbum,
-  IAlbumActionType,
-  IAlbumFormValues,
-} from "../../../types/album.interface";
+import { IAlbum, IAlbumActionType, IAlbumFormValues } from "../../../types";
 import {
   useCreateOneAlbumMutation,
   useUpdateOneAlbumMutation,

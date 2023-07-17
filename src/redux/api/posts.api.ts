@@ -6,7 +6,7 @@ import {
   IPostResponse,
   IPostResponseList,
   IPostUpdate,
-} from "../../types/posts.interface";
+} from "../../types";
 
 const postsApi = createApi({
   reducerPath: "postsApi",
@@ -27,6 +27,12 @@ const postsApi = createApi({
   endpoints: (builder) => ({
     allPosts: builder.query<IPostResponseList, null>({
       query: () => `/dashboard`,
+      keepUnusedDataFor: 30,
+      providesTags: ["posts"],
+    }),
+
+    getOnePostBySlug: builder.query<IPostResponse, string>({
+      query: (slug) => `/${slug}`,
       keepUnusedDataFor: 30,
       providesTags: ["posts"],
     }),
@@ -63,6 +69,8 @@ const postsApi = createApi({
 
 export const {
   useAllPostsQuery,
+  useUpdatePostMutation,
+  useGetOnePostBySlugQuery,
   useCreatePostMutation,
   useDeleteOnePostMutation,
 } = postsApi;

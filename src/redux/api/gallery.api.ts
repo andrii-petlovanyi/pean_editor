@@ -9,14 +9,12 @@ import {
   IGalleryFoldersResponse,
   IUpdateGalleryFolder,
   IUpdateResponse,
-} from "../../types";
-import { RootState } from "../store";
-import {
   IAlbumListResponse,
   IAlbumResponse,
   ICreateAlbum,
   IUpdateAlbum,
-} from "../../types/album.interface";
+} from "../../types";
+import { RootState } from "../store";
 
 const galleryApi = createApi({
   reducerPath: "galleryApi",

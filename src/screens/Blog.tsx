@@ -1,15 +1,15 @@
-import { Flex, Link, Text } from "@chakra-ui/react";
-import { ListWrapper, Search, PageToolbar } from "../components";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useAllPostsQuery } from "../redux/api/posts.api";
-import { IPost } from "../types/posts.interface";
-import { PostCard } from "../components/Posts/PostCard";
 import { Link as NavLink, useNavigate } from "react-router-dom";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import { MdPlaylistAdd } from "react-icons/md";
+import { ListWrapper, Search, PageToolbar } from "../components";
+import { useAllPostsQuery } from "../redux/api/posts.api";
+import { IPost } from "../types";
+import { PostCard } from "../components/Posts/PostCard";
 
 export const Blog = (): JSX.Element => {
   const [search, setSearch] = useState<string>();
-  const { data, isFetching } = useAllPostsQuery(null);
+  const { data, isLoading } = useAllPostsQuery(null);
   const { posts } = data ?? {};
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export const Blog = (): JSX.Element => {
 
   const content = useMemo(() => {
     switch (true) {
-      case isFetching:
+      case isLoading:
         return <>...loading</>;
       case posts && posts.length > 0:
         return posts?.map((post: IPost) => (
@@ -26,7 +26,7 @@ export const Blog = (): JSX.Element => {
       default:
         return <Text>...no posts</Text>;
     }
-  }, [data, isFetching]);
+  }, [data, isLoading]);
 
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
     if (event.metaKey && event.key === "n") {

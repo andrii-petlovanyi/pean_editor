@@ -2,15 +2,22 @@ import { useEffect } from "react";
 import { Divider, Flex, Grid, IconButton, Tooltip } from "@chakra-ui/react";
 import { VscOpenPreview } from "react-icons/vsc";
 import { MdOutlineClosedCaptionDisabled } from "react-icons/md";
-import { PageToolbar } from "../components";
-import { PostEditorForm } from "../components/Posts/PostEditorForm";
-import { ContentViewer } from "../components/ContentViewer/ContentViewer";
 import { useDispatch, useSelector } from "react-redux";
-import { updateShowPostViewer } from "../redux/slice/viewer.slice";
+import { PageToolbar } from "../components";
+import { PostEditorForm } from "../components/Posts/PostEditorForm/PostEditorForm";
+import { ContentViewer } from "../components/ContentViewer/ContentViewer";
+import {
+  updateInDraft,
+  updateShowPostViewer,
+} from "../redux/slice/viewer.slice";
+import { PublishSwitch } from "../components/Toolbars/PageToolbar/modules/PublishSwitch";
+import { AlbumSelectedBadge } from "../components/Toolbars/PageToolbar/modules/AlbumSelectedBadge";
 
 export const PostEditor = (): JSX.Element => {
   const dispatch = useDispatch();
   const showViewer = useSelector((state: any) => state.viewer.post.showViewer);
+  const isSwitched = useSelector((state: any) => state.viewer.post.inDraft);
+  const albumId = useSelector((state: any) => state.viewer.post.albumId);
 
   const handleUpdateShowViewer = () => {
     dispatch(updateShowPostViewer(!showViewer));
@@ -33,6 +40,11 @@ export const PostEditor = (): JSX.Element => {
   return (
     <Flex direction={"column"} gap={"15px"}>
       <PageToolbar>
+        {albumId && <AlbumSelectedBadge albumId={albumId} />}
+        <PublishSwitch
+          isSwitched={isSwitched}
+          changeSwitchAction={updateInDraft}
+        />
         <Tooltip label={showViewer ? "Hide viewer" : "Show viewer"}>
           <IconButton
             variant={"shadow"}

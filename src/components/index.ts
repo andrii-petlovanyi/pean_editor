@@ -9,4 +9,4 @@ export * from "./layout/SidebarOptions";
 export * from "./layout/links";
 export * from "./Login/LoginForm";
 export * from "./Search/Search";
-export * from "./Toolbars/PageToolbar";
+export * from "./Toolbars/PageToolbar/PageToolbar";

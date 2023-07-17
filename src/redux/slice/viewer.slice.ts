@@ -1,25 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialStatePost = {
+  postId: null,
+  albumId: null,
+  data: {},
+  showViewer: false,
+  inDraft: false,
+};
+
+const initialStateProject = {
+  projectId: null,
+  albumId: null,
+  data: {},
+  showViewer: false,
+};
+
 const viewerSlice = createSlice({
   name: "viewer",
   initialState: {
-    post: {
-      postId: null,
-      albumId: null,
-      data: {},
-      showViewer: false,
-    },
-    project: {
-      projectId: null,
-      albumId: null,
-      data: {},
-      showViewer: false,
-    },
+    post: initialStatePost,
+    project: initialStateProject,
   },
   reducers: {
     // Post actions
     updatePostData: (state, action) => {
-      state.post.data = action.payload;
+      state.post.data = { ...action.payload };
     },
     addPostAlbumId: (state, action) => {
       state.post.albumId = action.payload;
@@ -29,6 +34,15 @@ const viewerSlice = createSlice({
     },
     updateShowPostViewer: (state, action) => {
       state.post.showViewer = action.payload;
+    },
+    updateInDraft: (state, action) => {
+      state.post.inDraft = action.payload;
+    },
+    updatePostState: (state, action) => {
+      state.post = { ...action.payload };
+    },
+    resetPostState: (state, _) => {
+      state.post = initialStatePost;
     },
 
     // Project action
@@ -56,5 +70,8 @@ export const {
   resetProjectAlbumId,
   updateShowPostViewer,
   updateShowProjectViewer,
+  updateInDraft,
+  updatePostState,
+  resetPostState,
 } = viewerSlice.actions;
 export default viewerSlice.reducer;

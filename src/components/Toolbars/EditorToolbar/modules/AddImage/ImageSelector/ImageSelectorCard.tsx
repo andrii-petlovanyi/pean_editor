@@ -3,9 +3,8 @@ import { Flex, IconButton, Image, Tooltip } from "@chakra-ui/react";
 import { UseFormSetValue } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdAdd } from "react-icons/md";
-import { IImage } from "../../../../../../types";
+import { IImage, IPostForm } from "../../../../../../types";
 import { wrapInImg } from "../../../../../../helpers/wrapInImg";
-import { IPostForm } from "../../../../../../types/posts.interface";
 
 interface Props {
   img: IImage;
