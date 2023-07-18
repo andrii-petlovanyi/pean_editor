@@ -9,12 +9,12 @@ import {
   Home,
   Login,
   PostEditor,
+  ProjectEditor,
   Projects,
   Settings,
 } from "./screens";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import { Layout } from "./layout/Layout";
 import ProtectedRoute from "./components/layout/Routes/ProtectedRoute";
 import PublicRoute from "./components/layout/Routes/PublicRoute";
@@ -55,6 +55,7 @@ function App() {
             <Route path="blog" element={<Blog />} />
             <Route path="blog/editor" element={<PostEditor />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="projects/editor" element={<ProjectEditor />} />
             <Route path="comments" element={<Comments />} />
             <Route path="settings" element={<Settings />} />
             {/* <Route path="*" element={<NotFound />} /> */}

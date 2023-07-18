@@ -33,3 +33,21 @@ export interface IPostUpdate {
   postId: string;
   formData: IPostForm;
 }
+
+export interface IPostFormState {
+  title?: string;
+  description?: string;
+  article?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  albumId?: string;
+}
+
+export interface IPostViewerState {
+  data: IPostFormState;
+  postId: string | null;
+  albumId: string | null;
+  showViewer: boolean;
+  inDraft: boolean;
+}

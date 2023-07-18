@@ -9,20 +9,39 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { MdAddAPhoto } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { MdAddAPhoto } from "react-icons/md";
 import { UseFormSetValue } from "react-hook-form";
 import { SearchAlbum } from "./SearchAlbum/SearchAlbum";
 import { ImageSelector } from "./ImageSelector/ImageSelector";
-import { IPostForm } from "../../../../../types";
+import {
+  IPostForm,
+  IProjectForm,
+  IViewerMode,
+  IViewerState,
+} from "../../../../../types";
+
+export type FormType = IPostForm | IProjectForm;
 
 interface Props {
-  setValue: UseFormSetValue<IPostForm>;
+  setValue: UseFormSetValue<FormType>;
 }
 
 export const AddImage: FC<Props> = memo(({ setValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const albumId = useSelector((state: any) => state.viewer.post?.albumId);
+  const mode = useLocation().pathname.split("/")[1] as IViewerMode;
+
+  const postAlbumId = useSelector(
+    (state: IViewerState) => state.viewer.post.albumId
+  );
+  const projectAlbumId = useSelector(
+    (state: IViewerState) => state.viewer.project.albumId
+  );
+
+  const isPostMode = mode == IViewerMode.POST;
+
+  const albumId = isPostMode ? postAlbumId : projectAlbumId;
 
   return (
     <>
@@ -42,9 +61,13 @@ export const AddImage: FC<Props> = memo(({ setValue }) => {
         >
           <DrawerBody>
             {albumId ? (
-              <ImageSelector setValue={setValue} />
+              <ImageSelector
+                setValue={setValue}
+                mode={mode}
+                albumId={albumId}
+              />
             ) : (
-              <SearchAlbum isOpen={isOpen} />
+              <SearchAlbum isOpen={isOpen} mode={mode} />
             )}
           </DrawerBody>
           <DrawerFooter>Footer</DrawerFooter>

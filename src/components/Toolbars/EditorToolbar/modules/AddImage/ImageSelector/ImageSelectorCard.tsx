@@ -3,13 +3,15 @@ import { Flex, IconButton, Image, Tooltip } from "@chakra-ui/react";
 import { UseFormSetValue } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdAdd } from "react-icons/md";
-import { IImage, IPostForm } from "../../../../../../types";
-import { wrapInImg } from "../../../../../../helpers/wrapInImg";
+import { IImage, IPostForm, IProjectForm } from "../../../../../../types";
+import { wrapInImg } from "../../../../../../helpers";
+
+type FormType = IPostForm | IProjectForm;
 
 interface Props {
   img: IImage;
   alt: string;
-  setValue: UseFormSetValue<IPostForm>;
+  setValue: UseFormSetValue<FormType>;
 }
 
 const FrameFlex = motion(Flex);

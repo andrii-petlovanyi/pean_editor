@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IPostViewerState, IProjectViewerState } from "../../types";
 
-const initialStatePost = {
+const initialStatePost: IPostViewerState = {
   postId: null,
   albumId: null,
   data: {},
@@ -8,11 +9,12 @@ const initialStatePost = {
   inDraft: false,
 };
 
-const initialStateProject = {
+const initialStateProject: IProjectViewerState = {
   projectId: null,
   albumId: null,
   data: {},
   showViewer: false,
+  inDraft: false,
 };
 
 const viewerSlice = createSlice({
@@ -35,7 +37,7 @@ const viewerSlice = createSlice({
     updateShowPostViewer: (state, action) => {
       state.post.showViewer = action.payload;
     },
-    updateInDraft: (state, action) => {
+    updatePostInDraft: (state, action) => {
       state.post.inDraft = action.payload;
     },
     updatePostState: (state, action) => {
@@ -58,20 +60,33 @@ const viewerSlice = createSlice({
     updateShowProjectViewer: (state, action) => {
       state.project.showViewer = action.payload;
     },
+    updateProjectInDraft: (state, action) => {
+      state.project.inDraft = action.payload;
+    },
+    updateProjectState: (state, action) => {
+      state.project = { ...action.payload };
+    },
+    resetProjectState: (state, _) => {
+      state.project = initialStateProject;
+    },
   },
 });
 
 export const {
   updatePostData,
-  updateProjectData,
   addPostAlbumId,
-  addProjectAlbumId,
   resetPostAlbumId,
-  resetProjectAlbumId,
   updateShowPostViewer,
-  updateShowProjectViewer,
-  updateInDraft,
   updatePostState,
+  updatePostInDraft,
   resetPostState,
+
+  updateProjectData,
+  addProjectAlbumId,
+  resetProjectAlbumId,
+  updateShowProjectViewer,
+  updateProjectInDraft,
+  updateProjectState,
+  resetProjectState,
 } = viewerSlice.actions;
 export default viewerSlice.reducer;

@@ -2,9 +2,13 @@ import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { Flex, IconButton, Image, Text, Tooltip } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import { MdAdd } from "react-icons/md";
-import { IAlbum } from "../../../../../../types";
-import { addPostAlbumId } from "../../../../../../redux/slice/viewer.slice";
+import { IAlbum, IViewerMode } from "../../../../../../types";
+import {
+  addPostAlbumId,
+  addProjectAlbumId,
+} from "../../../../../../redux/slice/viewer.slice";
 
 interface Props {
   album: IAlbum;
@@ -16,8 +20,14 @@ export const SearchAlbumCard: FC<Props> = ({ album }) => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch();
 
+  const mode = useLocation().pathname.split("/")[1];
+
   const handleSelectAlbum = () => {
-    dispatch(addPostAlbumId(album.id));
+    if (mode == IViewerMode.POST) {
+      dispatch(addPostAlbumId(album.id));
+    } else if (mode == IViewerMode.PROJECT) {
+      dispatch(addProjectAlbumId(album.id));
+    }
   };
 
   return (

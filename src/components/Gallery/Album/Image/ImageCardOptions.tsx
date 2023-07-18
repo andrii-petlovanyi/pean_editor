@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useUpdateOneAlbumMutation } from "../../../../redux/api/gallery.api";
-import { messages } from "../../../../config/messages";
+import { messages } from "../../../../config/";
 
 interface Props {
   albumId: string;

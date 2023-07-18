@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { IAlbum } from "../../../../../../types";
 import { Flex } from "@chakra-ui/react";
+import { IAlbum } from "../../../../../../types";
 import { SearchAlbumCard } from "./SearchAlbumCard";
 
 interface Props {

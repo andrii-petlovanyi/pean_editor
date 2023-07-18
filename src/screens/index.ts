@@ -8,3 +8,4 @@ export * from "./GalleryFolder";
 export * from "./Album";
 export * from "./Login";
 export * from "./PostEditor";
+export * from "./ProjectEditor";

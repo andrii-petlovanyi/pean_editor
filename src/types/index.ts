@@ -8,3 +8,4 @@ export * from "./posts.interface";
 export * from "./projects.interface";
 export * from "./rtk.interface";
 export * from "./toolbar.interface";
+export * from "./viewer.interface";

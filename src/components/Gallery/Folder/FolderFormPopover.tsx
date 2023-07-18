@@ -32,9 +32,9 @@ import {
   useCreateOneGalleryFolderMutation,
   useUpdateOneGalleryFolderMutation,
 } from "../../../redux/api/gallery.api";
-import { messages } from "../../../config/messages";
-import { UploadWrapper } from "../../UploadWrapper/UploadWrapper";
+import { messages } from "../../../config";
 import { useOneImgPreview } from "../../../hooks";
+import { UploadWrapper } from "../..";
 
 interface Props {
   folder?: Omit<IGalleryFolder, "albums">;

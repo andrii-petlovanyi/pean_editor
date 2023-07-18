@@ -23,10 +23,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 import { useLogInUserMutation } from "../../redux/api/user.api";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage } from "../../hooks";
 import { constants } from "../../constants/constants";
 import { User } from "../../types";
-import { messages } from "../../config/messages";
+import { messages } from "../../config";
 import { loginSchema } from "./loginSchema";
 
 export const LoginForm: FC = () => {

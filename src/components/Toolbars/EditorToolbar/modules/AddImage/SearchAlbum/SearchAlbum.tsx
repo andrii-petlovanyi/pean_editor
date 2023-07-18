@@ -20,14 +20,25 @@ import { useSelector } from "react-redux";
 import { debounce } from "../../../../../../helpers";
 import { useSearchAlbumQuery } from "../../../../../../redux/api/gallery.api";
 import { SearchAlbumList } from "./SearchAlbumList";
+import { IViewerMode, IViewerState } from "../../../../../../types";
 
 interface Props {
+  mode: IViewerMode;
   isOpen: boolean;
 }
 
 export const SearchAlbum: FC<Props> = memo((props) => {
-  const { isOpen } = props;
-  const title = useSelector((state: any) => state.viewer.post.data.title);
+  const { isOpen, mode } = props;
+
+  const postTitle = useSelector(
+    (state: IViewerState) => state.viewer.post.data.title
+  );
+  const projectTitle = useSelector(
+    (state: IViewerState) => state.viewer.project.data.title
+  );
+
+  const title = mode === IViewerMode.POST ? postTitle : projectTitle;
+  
   const [searchAlbum, setSearchAlbum] = useState<string>("");
 
   useEffect(() => {

@@ -8,15 +8,19 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
-import { FormElementType, IPostForm, PostFormErrors } from "../../../types";
-import { PostEditorFormElement } from "./PostEditorFormElement";
+import {
+  FormElementType,
+  IProjectForm,
+  ProjectFormErrors,
+} from "../../../types";
+import { ProjectEditorFormElement } from "./ProjectEditorFormElement";
 
 interface Props {
-  register: UseFormRegister<IPostForm>;
-  errors: PostFormErrors;
+  register: UseFormRegister<IProjectForm>;
+  errors: ProjectFormErrors;
 }
 
-export const PostEditorMeta: FC<Props> = (props) => {
+export const ProjectEditorMeta: FC<Props> = (props) => {
   const { errors, register } = props;
 
   return (
@@ -35,21 +39,21 @@ export const PostEditorMeta: FC<Props> = (props) => {
           flexDirection={"column"}
           gap={4}
         >
-          <PostEditorFormElement
+          <ProjectEditorFormElement
             name={"metaTitle"}
             register={register}
             elementType={FormElementType.INPUT}
             placeholder={"Please enter meta title"}
             errors={errors}
           />
-          <PostEditorFormElement
+          <ProjectEditorFormElement
             placeholder={"Please enter meta keywords"}
             register={register}
             name={"metaKeywords"}
             errors={errors}
             elementType={FormElementType.TEXTAREA}
           />
-          <PostEditorFormElement
+          <ProjectEditorFormElement
             placeholder={"Please enter meta description"}
             register={register}
             name={"metaDescription"}

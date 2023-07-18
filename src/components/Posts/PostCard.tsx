@@ -4,7 +4,7 @@ import { Flex, IconButton } from "@chakra-ui/react";
 import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
 import { IPost } from "../../types";
 import { useDeleteOnePostMutation } from "../../redux/api/posts.api";
-import { useRequest } from "../../hooks/useRequest";
+import { useRequest } from "../../hooks";
 
 interface Props {
   post: IPost;

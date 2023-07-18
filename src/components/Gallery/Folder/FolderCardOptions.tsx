@@ -10,7 +10,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { IFolderActionType, IGalleryFolder } from "../../../types";
 import { FolderFormPopover } from "./FolderFormPopover";
 import { useDeleteOneGalleryFolderMutation } from "../../../redux/api/gallery.api";
-import { messages } from "../../../config/messages";
+import { messages } from "../../../config";
 
 interface Props {
   folder: Omit<IGalleryFolder, "albums">;

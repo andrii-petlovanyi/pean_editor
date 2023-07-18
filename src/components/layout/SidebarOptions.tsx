@@ -5,7 +5,7 @@ import { ToggleColorMode } from "../../theme/toggleColorMode";
 import { constants } from "../../constants/constants";
 import { useLocalStorage } from "../../hooks";
 import { useLogOutUserMutation } from "../../redux/api/user.api";
-import { messages } from "../../config/messages";
+import { messages } from "../../config";
 
 interface Props {
   isClosed: boolean;

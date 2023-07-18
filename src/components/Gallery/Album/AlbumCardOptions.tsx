@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDeleteOneAlbumMutation } from "../../../redux/api/gallery.api";
-import { messages } from "../../../config/messages";
+import { messages } from "../../../config";
 import { AlbumFormPopover } from "./AlbumFormPopover";
 import { IAlbum, IAlbumActionType } from "../../../types";
 

@@ -8,9 +8,11 @@ export const useRequest = (requestFn: (data: any) => Promise<any>) => {
       const response = await requestFn(data);
       if ("data" in response) {
         toast({ description: response.data.message });
+        return true;
       }
       if ("error" in response) {
         toast({ description: response.error.data.message });
+        return false;
       }
     } catch (error: Error | any) {
       toast({ description: JSON.stringify(error.message) });

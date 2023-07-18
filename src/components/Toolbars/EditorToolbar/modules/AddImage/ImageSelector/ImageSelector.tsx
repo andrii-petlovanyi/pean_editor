@@ -1,19 +1,30 @@
 import { FC, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UseFormSetValue } from "react-hook-form";
+import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { useGetOneAlbumQuery } from "../../../../../../redux/api/gallery.api";
-import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
-import { resetPostAlbumId } from "../../../../../../redux/slice/viewer.slice";
-import { IImage, IPostForm } from "../../../../../../types";
+import {
+  resetPostAlbumId,
+  resetProjectAlbumId,
+} from "../../../../../../redux/slice/viewer.slice";
+import {
+  IImage,
+  IPostForm,
+  IProjectForm,
+  IViewerMode,
+} from "../../../../../../types";
 import { ImageSelectorCard } from "./ImageSelectorCard";
 
+type FormType = IPostForm | IProjectForm;
+
 interface Props {
-  setValue: UseFormSetValue<IPostForm>;
+  albumId: string;
+  mode: IViewerMode;
+  setValue: UseFormSetValue<FormType>;
 }
 
-export const ImageSelector: FC<Props> = memo(({ setValue }) => {
-  const albumId = useSelector((state: any) => state.viewer.post?.albumId);
+export const ImageSelector: FC<Props> = memo(({ setValue, albumId, mode }) => {
   const dispatch = useDispatch();
 
   const { data } = useGetOneAlbumQuery(String(albumId), {
@@ -22,7 +33,11 @@ export const ImageSelector: FC<Props> = memo(({ setValue }) => {
   const { album } = data || {};
 
   const handleDeleteAlbum = () => {
-    dispatch(resetPostAlbumId(null));
+    if (mode === IViewerMode.POST) {
+      dispatch(resetPostAlbumId(null));
+    } else {
+      dispatch(resetProjectAlbumId(null));
+    }
   };
 
   return (

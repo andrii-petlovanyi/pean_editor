@@ -1,5 +1,6 @@
 import { Flex, IconButton, Tooltip, useColorModeValue } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
+import { UseFormSetValue } from "react-hook-form";
 import {
   BsCodeSlash,
   BsTextParagraph,
@@ -7,17 +8,15 @@ import {
   BsTypeItalic,
 } from "react-icons/bs";
 import { HeadingTagMenu } from "./modules/HeadingTagMenu";
-import { wrapInTag } from "../../../helpers/wrapInTag";
+import { wrapInTag } from "../../../helpers/";
 import { AddImage } from "./modules/AddImage/AddImage";
-import { UseFormSetValue } from "react-hook-form";
-import { IPostForm } from "../../../types";
 
 interface Props {
   children?: ReactNode;
-  setValue: UseFormSetValue<IPostForm>;
+  setValue: UseFormSetValue<any>;
 }
 
-export const EditorToolbar = (props: Props): JSX.Element => {
+export const EditorToolbar: FC<Props> = (props) => {
   const { children, setValue } = props;
 
   const handleChangeSelectedText = (tag: string) => {

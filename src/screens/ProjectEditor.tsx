@@ -4,30 +4,30 @@ import { VscOpenPreview } from "react-icons/vsc";
 import { MdOutlineClosedCaptionDisabled } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { PageToolbar } from "../components";
-import { PostEditorForm } from "../components/Posts/PostEditorForm/PostEditorForm";
 import { ContentViewer } from "../components/ContentViewer/ContentViewer";
 import {
   updatePostInDraft,
-  updateShowPostViewer,
+  updateShowProjectViewer,
 } from "../redux/slice/viewer.slice";
 import { PublishSwitch } from "../components/Toolbars/PageToolbar/modules/PublishSwitch";
 import { AlbumSelectedBadge } from "../components/Toolbars/PageToolbar/modules/AlbumSelectedBadge";
 import { IViewerMode, IViewerState } from "../types";
+import { ProjectEditorForm } from "../components/Projects/ProjectEditorForm/ProjectEditorForm";
 
-export const PostEditor = (): JSX.Element => {
+export const ProjectEditor = (): JSX.Element => {
   const dispatch = useDispatch();
   const showViewer = useSelector(
-    (state: IViewerState) => state.viewer.post.showViewer
+    (state: IViewerState) => state.viewer.project.showViewer
   );
   const isSwitched = useSelector(
-    (state: IViewerState) => state.viewer.post.inDraft
+    (state: IViewerState) => state.viewer.project.inDraft
   );
   const albumId = useSelector(
-    (state: IViewerState) => state.viewer.post.albumId
+    (state: IViewerState) => state.viewer.project.albumId
   );
 
   const handleUpdateShowViewer = () => {
-    dispatch(updateShowPostViewer(!showViewer));
+    dispatch(updateShowProjectViewer(!showViewer));
   };
 
   const handleKeyPress = (event: KeyboardEvent) => {
@@ -77,7 +77,7 @@ export const PostEditor = (): JSX.Element => {
         }
         gap={4}
       >
-        <PostEditorForm />
+        <ProjectEditorForm />
         {showViewer && (
           <>
             <Divider
@@ -86,7 +86,7 @@ export const PostEditor = (): JSX.Element => {
               color={"gray.600"}
               minH={"100%"}
             />
-            <ContentViewer mode={IViewerMode.POST} />
+            <ContentViewer mode={IViewerMode.PROJECT} />
           </>
         )}
       </Grid>

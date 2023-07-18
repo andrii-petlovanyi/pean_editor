@@ -27,9 +27,9 @@ import {
   useCreateOneAlbumMutation,
   useUpdateOneAlbumMutation,
 } from "../../../redux/api/gallery.api";
-import { UploadWrapper } from "../../UploadWrapper/UploadWrapper";
-import { useManyImagesPreview } from "../../../hooks/useManyImgsPreview";
-import { messages } from "../../../config/messages";
+import { useManyImagesPreview } from "../../../hooks";
+import { messages } from "../../../config";
+import { UploadWrapper } from "../..";
 
 interface Props {
   title: string;

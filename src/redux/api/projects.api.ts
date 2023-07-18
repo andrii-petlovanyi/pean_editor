@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../../config/config";
 import { RootState } from "../store";
+import {
+  IProjectForm,
+  IProjectResponse,
+  IProjectsResponseList,
+  IUpdateProject,
+} from "../../types";
 
 const projectsApi = createApi({
   reducerPath: "projectsApi",
@@ -19,10 +25,34 @@ const projectsApi = createApi({
   tagTypes: ["projects"],
 
   endpoints: (builder) => ({
-    allProjectsList: builder.query<any, null>({
+    allProjectsList: builder.query<IProjectsResponseList, null>({
       query: () => `/`,
       keepUnusedDataFor: 30,
       providesTags: ["projects"],
+    }),
+
+    getOneProjectBySlug: builder.query<IProjectResponse, string>({
+      query: (slug) => `/${slug}`,
+      keepUnusedDataFor: 30,
+      providesTags: ["projects"],
+    }),
+
+    createProject: builder.mutation<IProjectResponse, IProjectForm>({
+      query: (formData) => ({
+        url: `/`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["projects"],
+    }),
+
+    updateProject: builder.mutation<IProjectResponse, IUpdateProject>({
+      query: (postData) => ({
+        url: `/${postData.projectId}`,
+        method: "PATCH",
+        body: postData.formData,
+      }),
+      invalidatesTags: ["projects"],
     }),
 
     deleteOneProject: builder.mutation<any, string>({
@@ -36,7 +66,12 @@ const projectsApi = createApi({
   refetchOnReconnect: true,
 });
 
-export const { useAllProjectsListQuery, useDeleteOneProjectMutation } =
-  projectsApi;
+export const {
+  useAllProjectsListQuery,
+  useDeleteOneProjectMutation,
+  useCreateProjectMutation,
+  useUpdateProjectMutation,
+  useGetOneProjectBySlugQuery,
+} = projectsApi;
 
 export default projectsApi;

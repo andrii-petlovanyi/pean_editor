@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Flex, Stack, useColorModeValue } from "@chakra-ui/react";
-import { EditorToolbar } from "../../Toolbars/EditorToolbar/EditorToolbar";
 import {
   resetPostState,
   updatePostData,
@@ -17,18 +16,27 @@ import {
   useGetOnePostBySlugQuery,
   useUpdatePostMutation,
 } from "../../../redux/api/posts.api";
-import { useRequest } from "../../../hooks/useRequest";
+import { useRequest } from "../../../hooks";
 import { PostEditorFormElement } from "./PostEditorFormElement";
 import { PostEditorMeta } from "./PostEditorMeta";
-import { FormElementType, IPost, IPostForm } from "../../../types";
+import {
+  FormElementType,
+  IPost,
+  IPostForm,
+  IViewerState,
+} from "../../../types";
 import { postSchema } from "./postSchema";
+import { EditorToolbar } from "../..";
 
 export const PostEditorForm: FC = () => {
   const postSlug = useLocation().state;
-  const post = useSelector((state: any) => state.viewer.post.data);
-  const postId = useSelector((state: any) => state.viewer.post.postId);
-  const albumId = useSelector((state: any) => state.viewer.post.albumId);
-  const inDraft = useSelector((state: any) => state.viewer.post.inDraft);
+  const {
+    data: post,
+    postId,
+    albumId,
+    inDraft,
+  } = useSelector((state: IViewerState) => state.viewer.post);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -94,12 +102,20 @@ export const PostEditorForm: FC = () => {
           inDraft,
         },
       };
-      await handleUpdatePost(postData);
-      handleResetForm();
-      navigate("/blog");
+      const success = await handleUpdatePost(postData);
+
+      if (success) {
+        handleResetForm();
+        navigate("/blog");
+      }
     } else {
-      await handleCreatePost({ ...watchFormValues, albumId, inDraft });
-      handleResetForm();
+      const success = await handleCreatePost({
+        ...watchFormValues,
+        albumId,
+        inDraft,
+      });
+
+      if (success) handleResetForm();
     }
   };
 
@@ -151,9 +167,11 @@ export const PostEditorForm: FC = () => {
             register={register}
             name={"description"}
             errors={errors}
-            elementType={FormElementType.INPUT}
+            elementType={FormElementType.TEXTAREA}
           />
-          <EditorToolbar setValue={setValue}></EditorToolbar>
+
+          <EditorToolbar setValue={setValue} />
+
           <PostEditorFormElement
             placeholder={"Please enter post article"}
             register={register}
